@@ -1,0 +1,23 @@
+{
+  "name": "warpjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
+  },
+  "dependencies": {
+    "calculate-aspect-ratio": "0.1.3",
+    "gsap": "3.3.3",
+    "html-react-parser": "0.13.0",
+    "normalize.css": "8.0.1",
+    "sass": "1.26.8",
+    "warpjs": "1.0.8"
+  },
+  "devDependencies": {
+    "@babel/core": "7.2.0",
+    "parcel-bundler": "^1.6.1"
+  },
+  "keywords": []
+}

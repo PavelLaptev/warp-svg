@@ -1,0 +1,41 @@
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+
+#svg-element {
+  overflow: visible;
+  width: 100%;
+  height: 100%;
+}
+
+#svg-container {
+  margin: auto;
+  position: relative;
+}
+
+#svg-control {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+#control-path {
+  fill: none;
+  stroke: red;
+  stroke-width: 1px;
+}
+
+.dropzone-preview {
+  pointer-events: none;
+  opacity: 0;
+  position: absolute;
+}
+
+.show-dropzone {
+  opacity: 1;
+}

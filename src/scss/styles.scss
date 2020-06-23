@@ -21,12 +21,12 @@
   height: 100%;
   overflow: visible;
   position: absolute;
-  // background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.1);
   &:hover {
-    background: rgba(0, 0, 0, 0.1);
-    #control-path {
-      stroke: red;
-    }
+    // background: rgba(0, 0, 0, 0.1);
+    // #control-path {
+    //   stroke: red;
+    // }
     .control-point {
       opacity: 1;
       fill: red;
@@ -36,7 +36,7 @@
 
 #control-path {
   fill: none;
-  // stroke: red;
+  stroke: red;
   stroke-width: 1px;
 }
 

@@ -13,6 +13,10 @@ const svgContainer = document.getElementById("svg-container");
 const svgElement = document.getElementById("svg-element");
 const svgControl = document.getElementById("svg-control");
 
+const actions = {
+  meshComplexity: document.getElementById("mesh-complexity")
+};
+
 let width = svgContainer.clientWidth;
 let height = svgContainer.clientHeight;
 
@@ -37,7 +41,7 @@ function parseSVGString(svgString) {
   svgElement.innerHTML = svgDOM.firstChild.innerHTML.toString();
 }
 
-function init(rawSVGstring, pointsAmount) {
+function init(rawSVGstring, complexityLevel) {
   const controlPath = document.getElementById("control-path");
   parseSVGString(rawSVGstring);
 
@@ -49,8 +53,9 @@ function init(rawSVGstring, pointsAmount) {
   // console.log(controlPoints)
 
   // Start with a rectangle, then distort it later
-  let controlPoints = {
-    small: [
+  let controlPoints = [
+    [[0, 0], [0, height], [width, height], [width, 0]],
+    [
       [0, 0],
       [0, height / 2],
       [0, height],
@@ -60,17 +65,7 @@ function init(rawSVGstring, pointsAmount) {
       [width, 0],
       [width / 2, 0]
     ],
-    medium: [
-      [0, 0],
-      [0, height / 2],
-      [0, height],
-      [width / 2, height],
-      [width, height],
-      [width, height / 2],
-      [width, 0],
-      [width / 2, 0]
-    ],
-    many: [
+    [
       [0, 0],
       [0, height / 2],
       [0, height],
@@ -80,7 +75,7 @@ function init(rawSVGstring, pointsAmount) {
       [width, 0],
       [width / 2, 0]
     ]
-  };
+  ];
 
   // Funny things happen when control points are positioned perfectly on other points... buff it out
   // const controlBuffer = 4.0;
@@ -97,7 +92,7 @@ function init(rawSVGstring, pointsAmount) {
 
   //
   // Compute weights from control points
-  warp.transform(function(v0, V = controlPoints[pointsAmount]) {
+  warp.transform(function(v0, V = controlPoints[complexityLevel]) {
     const A = [];
     const W = [];
     const L = [];
@@ -143,7 +138,7 @@ function init(rawSVGstring, pointsAmount) {
 
   //
   // Warp function
-  function reposition([x, y, ...W], V = controlPoints[pointsAmount]) {
+  function reposition([x, y, ...W], V = controlPoints[complexityLevel]) {
     let nx = 0;
     let ny = 0;
 
@@ -158,7 +153,7 @@ function init(rawSVGstring, pointsAmount) {
 
   function drawControlShape(
     element = controlPath,
-    V = controlPoints[pointsAmount]
+    V = controlPoints[complexityLevel]
   ) {
     const path = [`M${V[0][0]} ${V[0][1]}`];
 
@@ -192,7 +187,7 @@ function init(rawSVGstring, pointsAmount) {
         const relativeY =
           this.pointerY - svgControl.getBoundingClientRect().top;
         // console.log(relativeY);
-        controlPoints[pointsAmount][index] = [relativeX, relativeY];
+        controlPoints[complexityLevel][index] = [relativeX, relativeY];
         drawControlShape();
         warp.transform(reposition);
       }
@@ -201,7 +196,7 @@ function init(rawSVGstring, pointsAmount) {
 
   function drawControlShapes(
     element = svgControl,
-    V = controlPoints[pointsAmount]
+    V = controlPoints[complexityLevel]
   ) {
     V.map((i, index) => {
       drawCircle(element, { x: i[0], y: i[1] }, index);
@@ -209,19 +204,19 @@ function init(rawSVGstring, pointsAmount) {
     });
   }
 
-  const origControlPoints = JSON.parse(
-    JSON.stringify(controlPoints[pointsAmount])
-  );
-  const radius = 20;
-  let angle = 0;
+  // const origControlPoints = JSON.parse(
+  //   JSON.stringify(controlPoints[complexityLevel])
+  // );
+  // const radius =0;
+  // let angle = 0;
 
-  for (let i = 0; i < controlPoints.length; i++) {
-    // const off = (origControlPoints[i][0] * origControlPoints[i][1]) / 1;
-    controlPoints[pointsAmount][i] = [
-      origControlPoints[i][0] + radius * Math.cos(angle),
-      origControlPoints[i][1] + radius * Math.sin(angle)
-    ];
-  }
+  // for (let i = 0; i < controlPoints.length; i++) {
+  //   // const off = (origControlPoints[i][0] * origControlPoints[i][1]) / 1;
+  //   controlPoints[complexityLevel][i] = [
+  //     origControlPoints[i][0] + radius * Math.cos(angle),
+  //     origControlPoints[i][1] + radius * Math.sin(angle)
+  //   ];
+  // }
 
   //
   drawControlShape();
@@ -229,7 +224,7 @@ function init(rawSVGstring, pointsAmount) {
   warp.transform(reposition);
 }
 
-init(testSVG, "small");
+init(testSVG, 0);
 
 dropZone(result => {
   svgControl.innerHTML = "";
@@ -239,5 +234,21 @@ dropZone(result => {
   );
   newControlPath.setAttributeNS(null, "id", "control-path");
   svgControl.appendChild(newControlPath);
-  init(result, "small");
+  init(result, 0);
 });
+
+actions.meshComplexity.addEventListener(
+  "change",
+  e => {
+    svgControl.innerHTML = "";
+    const newControlPath = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "path"
+    );
+    newControlPath.setAttributeNS(null, "id", "control-path");
+    svgControl.appendChild(newControlPath);
+    init(testSVG, e.target.value);
+    console.log(e.target.value);
+  },
+  false
+);

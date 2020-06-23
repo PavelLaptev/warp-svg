@@ -21,15 +21,32 @@
   height: 100%;
   overflow: visible;
   position: absolute;
-  background: rgba(0, 0, 0, 0.1);
+  // background: rgba(0, 0, 0, 0.1);
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+    #control-path {
+      stroke: red;
+    }
+    .control-point {
+      opacity: 1;
+      fill: red;
+    }
+  }
 }
 
 #control-path {
   fill: none;
-  stroke: red;
+  // stroke: red;
   stroke-width: 1px;
 }
 
+.control-point {
+  opacity: 0.2;
+  fill: rgba(0,0,0,0.6);
+  stroke-width: 2px;
+}
+
+// 
 .dropzone-preview {
   pointer-events: none;
   opacity: 0;
@@ -38,4 +55,9 @@
 
 .show-dropzone {
   opacity: 1;
+}
+
+//
+.actions {
+  position: absolute;
 }

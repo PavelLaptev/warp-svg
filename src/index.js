@@ -59,6 +59,26 @@ function init(rawSVGstring, pointsAmount) {
       [width, height / 2],
       [width, 0],
       [width / 2, 0]
+    ],
+    medium: [
+      [0, 0],
+      [0, height / 2],
+      [0, height],
+      [width / 2, height],
+      [width, height],
+      [width, height / 2],
+      [width, 0],
+      [width / 2, 0]
+    ],
+    many: [
+      [0, 0],
+      [0, height / 2],
+      [0, height],
+      [width / 2, height],
+      [width, height],
+      [width, height / 2],
+      [width, 0],
+      [width / 2, 0]
     ]
   };
 
@@ -159,11 +179,6 @@ function init(rawSVGstring, pointsAmount) {
     circle.setAttributeNS(null, "cx", pos.x);
     circle.setAttributeNS(null, "cy", pos.y);
     circle.setAttributeNS(null, "r", 6);
-    circle.setAttributeNS(
-      null,
-      "style",
-      "fill: red; stroke: blue; stroke-width: 2px;"
-    );
     element.appendChild(circle);
 
     Draggable.create(circle, {

@@ -3,8 +3,6 @@ const dropZone = callback => {
     "dropzone-preview"
   )[0];
 
-  // console.log(dropZonePreview);
-
   const toggleDropZone = e => {
     e.stopPropagation();
     e.preventDefault();

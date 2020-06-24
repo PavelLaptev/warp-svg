@@ -4,6 +4,7 @@ import Warp from "warpjs";
 import gsap from "gsap";
 import Draggable from "gsap/Draggable";
 import dropZone from "./dropzone";
+import generateMeshPoints from "./generateMeshPoints";
 
 import { testSVG } from "./assets/svg-test-strings";
 
@@ -19,7 +20,9 @@ const actions = {
 
 let width = svgContainer.clientWidth;
 let height = svgContainer.clientHeight;
+let complexityLevel = actions.meshComplexity.value;
 
+// console.log(generateMeshPoints(width, height, 4));
 // console.log(width)
 
 function parseSVGString(svgString) {
@@ -41,7 +44,7 @@ function parseSVGString(svgString) {
   svgElement.innerHTML = svgDOM.firstChild.innerHTML.toString();
 }
 
-function init(rawSVGstring, complexityLevel) {
+function init(rawSVGstring) {
   const controlPath = document.getElementById("control-path");
   parseSVGString(rawSVGstring);
 
@@ -53,29 +56,13 @@ function init(rawSVGstring, complexityLevel) {
   // console.log(controlPoints)
 
   // Start with a rectangle, then distort it later
-  let controlPoints = [
-    [[0, 0], [0, height], [width, height], [width, 0]],
-    [
-      [0, 0],
-      [0, height / 2],
-      [0, height],
-      [width / 2, height],
-      [width, height],
-      [width, height / 2],
-      [width, 0],
-      [width / 2, 0]
-    ],
-    [
-      [0, 0],
-      [0, height / 2],
-      [0, height],
-      [width / 2, height],
-      [width, height],
-      [width, height / 2],
-      [width, 0],
-      [width / 2, 0]
-    ]
-  ];
+  let controlPoints = generateMeshPoints(
+    width,
+    height,
+    Number(complexityLevel)
+  );
+
+  // console.log(controlPoints)
 
   // Funny things happen when control points are positioned perfectly on other points... buff it out
   // const controlBuffer = 4.0;
@@ -92,7 +79,7 @@ function init(rawSVGstring, complexityLevel) {
 
   //
   // Compute weights from control points
-  warp.transform(function(v0, V = controlPoints[complexityLevel]) {
+  warp.transform(function(v0, V = controlPoints) {
     const A = [];
     const W = [];
     const L = [];
@@ -138,7 +125,7 @@ function init(rawSVGstring, complexityLevel) {
 
   //
   // Warp function
-  function reposition([x, y, ...W], V = controlPoints[complexityLevel]) {
+  function reposition([x, y, ...W], V = controlPoints) {
     let nx = 0;
     let ny = 0;
 
@@ -151,10 +138,7 @@ function init(rawSVGstring, complexityLevel) {
     return [nx, ny, ...W];
   }
 
-  function drawControlShape(
-    element = controlPath,
-    V = controlPoints[complexityLevel]
-  ) {
+  function drawControlShape(element = controlPath, V = controlPoints) {
     const path = [`M${V[0][0]} ${V[0][1]}`];
 
     for (let i = 1; i < V.length; i++) {
@@ -187,17 +171,14 @@ function init(rawSVGstring, complexityLevel) {
         const relativeY =
           this.pointerY - svgControl.getBoundingClientRect().top;
         // console.log(relativeY);
-        controlPoints[complexityLevel][index] = [relativeX, relativeY];
+        controlPoints[index] = [relativeX, relativeY];
         drawControlShape();
         warp.transform(reposition);
       }
     });
   }
 
-  function drawControlShapes(
-    element = svgControl,
-    V = controlPoints[complexityLevel]
-  ) {
+  function drawControlShapes(element = svgControl, V = controlPoints) {
     V.map((i, index) => {
       drawCircle(element, { x: i[0], y: i[1] }, index);
       return null;
@@ -224,7 +205,7 @@ function init(rawSVGstring, complexityLevel) {
   warp.transform(reposition);
 }
 
-init(testSVG, 0);
+init(testSVG, complexityLevel);
 
 dropZone(result => {
   svgControl.innerHTML = "";
@@ -234,12 +215,14 @@ dropZone(result => {
   );
   newControlPath.setAttributeNS(null, "id", "control-path");
   svgControl.appendChild(newControlPath);
-  init(result, 0);
+  init(result, complexityLevel);
 });
 
 actions.meshComplexity.addEventListener(
   "change",
   e => {
+    complexityLevel = e.target.value;
+    console.log(complexityLevel);
     svgControl.innerHTML = "";
     const newControlPath = document.createElementNS(
       "http://www.w3.org/2000/svg",
@@ -247,8 +230,7 @@ actions.meshComplexity.addEventListener(
     );
     newControlPath.setAttributeNS(null, "id", "control-path");
     svgControl.appendChild(newControlPath);
-    init(testSVG, e.target.value);
-    console.log(e.target.value);
+    init(testSVG, complexityLevel);
   },
   false
 );

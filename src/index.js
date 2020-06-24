@@ -164,13 +164,10 @@ function init(rawSVGstring) {
       type: "x,y",
       // bounds: svgControl,
       onDrag: function() {
-        // console.log({x: this.x, y: this.y})
-        // console.log(width - this.pointerX)
         const relativeX =
           this.pointerX - svgControl.getBoundingClientRect().left;
         const relativeY =
           this.pointerY - svgControl.getBoundingClientRect().top;
-        // console.log(relativeY);
         controlPoints[index] = [relativeX, relativeY];
         drawControlShape();
         warp.transform(reposition);
@@ -184,20 +181,6 @@ function init(rawSVGstring) {
       return null;
     });
   }
-
-  // const origControlPoints = JSON.parse(
-  //   JSON.stringify(controlPoints[complexityLevel])
-  // );
-  // const radius =0;
-  // let angle = 0;
-
-  // for (let i = 0; i < controlPoints.length; i++) {
-  //   // const off = (origControlPoints[i][0] * origControlPoints[i][1]) / 1;
-  //   controlPoints[complexityLevel][i] = [
-  //     origControlPoints[i][0] + radius * Math.cos(angle),
-  //     origControlPoints[i][1] + radius * Math.sin(angle)
-  //   ];
-  // }
 
   //
   drawControlShape();

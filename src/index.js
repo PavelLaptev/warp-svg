@@ -5,25 +5,27 @@ import gsap from "gsap";
 import Draggable from "gsap/Draggable";
 import dropZone from "./dropzone";
 import generateMeshPoints from "./generateMeshPoints";
+import saveResult from "./saveResults";
+import moveCanvas from "./moveCanvas";
+import toggleControls from "./toggleControls";
 
 import { testSVG } from "./assets/svg-test-strings";
 
 gsap.registerPlugin(Draggable);
 
+let svgString = testSVG;
 const svgContainer = document.getElementById("svg-container");
 const svgElement = document.getElementById("svg-element");
 const svgControl = document.getElementById("svg-control");
 
 const actions = {
-  meshComplexity: document.getElementById("mesh-complexity")
+  meshComplexity: document.getElementById("mesh-complexity"),
+  showOriginalBox: document.getElementById("show-original-box-btn")
 };
 
 let width = svgContainer.clientWidth;
 let height = svgContainer.clientHeight;
 let complexityLevel = actions.meshComplexity.value;
-
-// console.log(generateMeshPoints(width, height, 4));
-// console.log(width)
 
 function parseSVGString(svgString) {
   const parser = new DOMParser();
@@ -44,16 +46,14 @@ function parseSVGString(svgString) {
   svgElement.innerHTML = svgDOM.firstChild.innerHTML.toString();
 }
 
-function init(rawSVGstring) {
+function init(firstInit = false) {
   const controlPath = document.getElementById("control-path");
-  parseSVGString(rawSVGstring);
+  parseSVGString(svgString);
+  console.log(`first init is ${firstInit}`);
 
   // Need to interpolate first, so angles remain sharp
   const warp = new Warp(svgElement);
-  warp.interpolate(30);
-
-  // let controlPoints = pointsAmount;
-  // console.log(controlPoints)
+  warp.interpolate(40);
 
   // Start with a rectangle, then distort it later
   let controlPoints = generateMeshPoints(
@@ -61,21 +61,6 @@ function init(rawSVGstring) {
     height,
     Number(complexityLevel)
   );
-
-  // console.log(controlPoints)
-
-  // Funny things happen when control points are positioned perfectly on other points... buff it out
-  // const controlBuffer = 4.0;
-  // for (let i = 0; i < controlPoints.length; i++) {
-  //   if (controlPoints[pointsAmount][i][0] === 0)
-  //     controlPoints[pointsAmount][i][0] -= controlBuffer;
-  //   if (controlPoints[pointsAmount][i][1] === 0)
-  //     controlPoints[pointsAmount][i][1] -= controlBuffer;
-  //   if (controlPoints[pointsAmount][i][0] === width)
-  //     controlPoints[pointsAmount][i][0] += controlBuffer;
-  //   if (controlPoints[pointsAmount][i][1] === height)
-  //     controlPoints[pointsAmount][i][1] += controlBuffer;
-  // }
 
   //
   // Compute weights from control points
@@ -183,14 +168,28 @@ function init(rawSVGstring) {
   }
 
   //
+  if (firstInit) {
+    controlPoints = [
+      [-40, 70],
+      [10, 180],
+      [-20, 275],
+      [130, 420],
+      [160, 184],
+      [400, 470],
+      [540, 350],
+      [450, 90],
+      [260, 6],
+      [500, 30],
+      [460, -10],
+      [110, -80]
+    ];
+  }
   drawControlShape();
   drawControlShapes();
   warp.transform(reposition);
 }
 
-init(testSVG, complexityLevel);
-
-dropZone(result => {
+const createNewControlPath = () => {
   svgControl.innerHTML = "";
   const newControlPath = document.createElementNS(
     "http://www.w3.org/2000/svg",
@@ -198,22 +197,37 @@ dropZone(result => {
   );
   newControlPath.setAttributeNS(null, "id", "control-path");
   svgControl.appendChild(newControlPath);
-  init(result, complexityLevel);
+};
+
+/////////
+dropZone(result => {
+  svgString = result;
+  createNewControlPath();
+  init();
 });
 
+/////////
 actions.meshComplexity.addEventListener(
   "change",
   e => {
     complexityLevel = e.target.value;
-    console.log(complexityLevel);
-    svgControl.innerHTML = "";
-    const newControlPath = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "path"
-    );
-    newControlPath.setAttributeNS(null, "id", "control-path");
-    svgControl.appendChild(newControlPath);
-    init(testSVG, complexityLevel);
+    createNewControlPath();
+    init();
   },
   false
 );
+
+////////
+actions.showOriginalBox.addEventListener(
+  "change",
+  () => {
+    svgControl.classList.toggle("show");
+    console.log(actions.showOriginalBox.checked);
+  },
+  false
+);
+
+toggleControls();
+moveCanvas(svgContainer);
+saveResult(document.getElementById("save-result-btn"), svgElement);
+init(true);

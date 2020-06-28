@@ -6,7 +6,7 @@ const dropZone = callback => {
   const toggleDropZone = e => {
     e.stopPropagation();
     e.preventDefault();
-    dropZonePreview.classList.toggle("show-dropzone");
+    dropZonePreview.classList.toggle("show");
     // console.log(e.type);
   };
 

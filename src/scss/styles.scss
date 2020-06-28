@@ -1,8 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&display=swap');
+
+:root {
+  --main-clr: #35FFCE;
+  --secondary-clr: #111;
+  --border-width: 2px;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  overflow: hidden;
+}
+
+hr {
+  border: none;
+  border-top: 1px dashed rgba(255, 255, 255, 0.3);
+  margin: 24px 0 10px;
+}
+
 #app {
   display: flex;
   flex-direction: column;
   height: 100vh;
   width: 100%;
+  font-family: 'IBM Plex Mono', monospace;
 }
 
 #svg-element {
@@ -21,22 +47,25 @@
   height: 100%;
   overflow: visible;
   position: absolute;
-  background: rgba(0, 0, 0, 0.1);
+  // background: rgba(0, 0, 0, 0.1);
   &:hover {
     // background: rgba(0, 0, 0, 0.1);
-    // #control-path {
-    //   stroke: red;
-    // }
+    #control-path {
+      stroke: red;
+    }
     .control-point {
       opacity: 1;
       fill: red;
     }
   }
+  &.show {
+    background: rgba(0, 0, 0, 0.1);
+  }
 }
 
 #control-path {
   fill: none;
-  stroke: red;
+  stroke: rgba(0, 0, 0, 0.1);
   stroke-width: 1px;
 }
 
@@ -48,16 +77,359 @@
 
 // 
 .dropzone-preview {
+  z-index: 3;
   pointer-events: none;
   opacity: 0;
   position: absolute;
-}
-
-.show-dropzone {
-  opacity: 1;
+  &.show {
+    opacity: 1;
+  }
 }
 
 //
 .actions {
+  z-index: 9999;
   position: absolute;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  max-width: 320px;
+}
+
+@mixin content-block {
+  cursor: default;
+  background: var(--secondary-clr);
+  padding: 24px;
+  margin-bottom: 8px;
+  color: white;
+  font-size: 14px;
+  overflow: hidden;
+  position: relative;
+  // transition: all 0.04s ease-in;
+  ul {
+    padding-left: 24px;
+    margin: 0;
+    list-style: none;
+    li {
+      &:before {
+        position: absolute;
+        content: "\2022";
+        color: var(--main-clr);
+        font-weight: bold;
+        display: inline-block;
+        width: 1em;
+        margin-left: -24px;
+      }
+    }
+  }
+  p {
+    margin-top: 8px;
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+  h3 {
+    font-size: 14px;
+    opacity: 0.4;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  &.hide {
+    opacity: 0;
+    height: 0;
+    padding: 0 24px;
+    margin-bottom: 0;
+  }
+}
+
+.content-block {
+  @include content-block;
+}
+
+.action-buttons {
+  display: flex;
+}
+
+
+.close-btn {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  // background: rgba(150, 255, 255, 0.4);
+  position: absolute;
+  right: 12px;
+  top: 8px;
+  opacity: 0.4;
+  transition: all 0.1s ease;
+  &:after {
+    pointer-events: none;
+    content: "";
+    width: 16px;
+    height: 3px;
+    background: white;
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  &:hover {
+    opacity: 1;
+  }
+}
+
+@mixin btn-mixin($font-clr, $bck-clr, $hover-bck-clr){
+  cursor: pointer;
+  font-size: 15px;
+  text-transform: uppercase;
+  padding: 16px 16px;
+  background: $bck-clr;
+  color: $font-clr;
+  transition: all 0.05s ease-in-out;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    background: $hover-bck-clr !important;
+    color: white !important;
+  }
+}
+
+.primary-btn {
+  @include btn-mixin(var(--main-clr), var(--secondary-clr), var(--secondary-clr));
+  border: none;
+  &.active {
+    background: var(--main-clr);
+    color: var(--secondary-clr);
+  }
+}
+
+.secondary-btn {
+  @include btn-mixin(var(--secondary-clr),white, var(--secondary-clr));
+  border: var(--border-width) solid var(--secondary-clr);
+  &.active {
+    background: var(--main-clr);
+    border: var(--border-width) solid var(--main-clr);
+    &:hover {
+      background: var(--main-clr) !important;
+      border: var(--border-width) solid var(--secondary-clr) !important;
+      color: var(--secondary-clr) !important;
+    }
+  }
+}
+
+#show-settings {
+  margin-right: 8px;
+}
+
+#show-info {
+  text-transform: lowercase;
+  margin-right: 8px;
+}
+
+// 
+.links {
+  display: flex;
+  padding: 16px 0 8px;
+}
+
+.social-media {
+  display: inline-block;
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  span {
+    color: var(--main-clr);
+    margin: 0 8px;
+    font-size: 14px;
+    transition: all 0.1s ease;
+  }
+  svg {
+    fill: var(--main-clr);
+    transform: scale(0.8);
+    transition: all 0.1s ease;
+  }
+  &:hover {
+    span {
+      color: white;
+    }
+    svg {
+      fill: white;
+    }
+  }
+}
+
+// 
+.range-selector {
+  margin-bottom: 26px;
+  input {
+    width: 100%;
+    margin-top: 20px;
+  }
+  input[type=range] {
+    width: 100%;
+    background-color: transparent;
+    -webkit-appearance: none;
+  }
+  input[type=range]:focus {
+    outline: none;
+  }
+  input[type=range]::-webkit-slider-runnable-track {
+    background: var(--main-clr);
+    border: 0.2px solid rgba(0, 1, 1, 0);
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    margin-top: -8px;
+    width: 32px;
+    height: 18px;
+    background: #ffffff;
+    border: var(--border-width) solid #000000;
+    cursor: pointer;
+    -webkit-appearance: none;
+  }
+  input[type=range]:focus::-webkit-slider-runnable-track {
+    background: var(--main-clr);
+  }
+  input[type=range]::-moz-range-track {
+    background: var(--main-clr);
+    border: 0.2px solid rgba(0, 1, 1, 0);
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+  }
+  input[type=range]::-moz-range-thumb {
+    width: 32px;
+    height: 18px;
+    background: #ffffff;
+    border: var(--border-width) solid #000000;
+    cursor: pointer;
+  }
+  input[type=range]::-ms-track {
+    background: transparent;
+    border-color: transparent;
+    border-width: 5px 0;
+    color: transparent;
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+  }
+  input[type=range]::-ms-fill-lower {
+    background: var(--main-clr);
+    border: 0.2px solid rgba(0, 1, 1, 0);
+  }
+  input[type=range]::-ms-fill-upper {
+    background: var(--main-clr);
+    border: 0.2px solid rgba(0, 1, 1, 0);
+  }
+  input[type=range]::-ms-thumb {
+    width: 32px;
+    height: 18px;
+    background: #ffffff;
+    border: var(--border-width) solid #000000;
+    cursor: pointer;
+    margin-top: 0px;
+    /*Needed to keep the Edge thumb centred*/
+  }
+  input[type=range]:focus::-ms-fill-lower {
+    background: var(--main-clr);
+  }
+  input[type=range]:focus::-ms-fill-upper {
+    background: var(--main-clr);
+  }
+}
+
+.checkbox-block {
+  display: flex;
+  flex-direction: column;
+  padding: 0 0 10px;
+  input[type="checkbox"] {
+    display: none;
+    & + label {
+      display: flex;
+      flex-direction: column-reverse;
+      position: relative;
+      cursor: pointer;
+      padding: 0;
+    }
+    & + label:before {
+      content: '';
+      position: relative;
+      margin-top: 16px;
+      margin-right: 10px;
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background: white;
+    }
+  }
+  input[type="checkbox"]:checked {
+    & + label {
+      &:before {
+        background: var(--main-clr);
+      }
+      &:after {
+        content: "";
+        width: 20px;
+        height: var(--border-width);
+        background: var(--secondary-clr);
+        display: inline-block;
+        position: absolute;
+        bottom: 8px;
+        left: 0;
+        transform: rotate(-45deg);
+      }
+    }
+  }
+}
+
+//////
+.switcher {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  input[type="checkbox"] {
+    display: none;
+    & + label {
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      position: relative;
+      cursor: pointer;
+      padding: 0;
+    }
+    & + label:after {
+      content: '';
+      position: absolute;
+      left: -42px;
+      display: inline-block;
+      width: 14px;
+      height: 20px;
+      background: white;
+      border: var(--border-width) solid black;
+      transition: all 0.08s ease-in-out;
+    }
+    & + label:before {
+      content: '';
+      position: absolute;
+      left: -42px;
+      margin-right: 10px;
+      display: inline-block;
+      width: 32px;
+      height: 20px;
+      background: var(--main-clr);
+      border: var(--border-width) solid black;
+    }
+  }
+  input[type="checkbox"]:checked {
+    & + label {
+      &:after {
+        left: -24px;
+      }
+    }
+  }
 }

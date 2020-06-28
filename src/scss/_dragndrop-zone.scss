@@ -1,0 +1,43 @@
+.dropzone-preview {
+  z-index: 99999;
+  position: absolute;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: all 0.2s ease;
+  .info {
+    z-index: 99999;
+    padding: 100px;
+    border: var(--text-clr-dark) solid var(--border-width);
+    transform: translate(-50%, -50%) scale(0.8);
+    background-color: var(--text-clr-light);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .overlay {
+    background: var(--main-clr);
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+  }
+  .caption {
+    color: var(--text-clr-dark);
+    line-height: 1.3;
+  }
+  .icon {
+    display: inline-block;
+    width: 230px;
+    height: 176px;
+  }
+  &.show {
+    opacity: 1;
+    .info {
+      transform: translate(-50%, -50%) scale(1);
+    } 
+  }
+}

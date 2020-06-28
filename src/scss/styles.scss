@@ -1,9 +1,25 @@
+@import "./mixins";
+@import "./dragndrop-zone";
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&display=swap');
 
 :root {
+  --border-width: 2px;
   --main-clr: #35FFCE;
   --secondary-clr: #111;
-  --border-width: 2px;
+  --background-clr: white;
+  --text-clr-light: white;
+  --text-clr-dark: #111;
+  --btn-border-clr: var(--main-clr);
+  --active-drag-clr: #f45;
+}
+
+.dark-theme {
+  --main-clr: #111;
+  --secondary-clr: #35FFCE;
+  --background-clr: rgb(29, 29, 29);
+  --text-clr-light: #111;
+  --text-clr-dark: white;
+  --btn-border-clr: white;
 }
 
 *, *:before, *:after {
@@ -13,13 +29,19 @@
   text-rendering: optimizeLegibility;
 }
 
+*::selection {
+  color: var(--secondary-clr);
+  background: var(--main-clr);
+}
+
 body {
   overflow: hidden;
 }
 
 hr {
   border: none;
-  border-top: 1px dashed rgba(255, 255, 255, 0.3);
+  border-top: 1px dashed var(--text-clr-light);
+  opacity: 0.4;
   margin: 24px 0 10px;
 }
 
@@ -29,6 +51,7 @@ hr {
   height: 100vh;
   width: 100%;
   font-family: 'IBM Plex Mono', monospace;
+  background: var(--background-clr);
 }
 
 #svg-element {
@@ -47,19 +70,18 @@ hr {
   height: 100%;
   overflow: visible;
   position: absolute;
-  // background: rgba(0, 0, 0, 0.1);
   &:hover {
-    // background: rgba(0, 0, 0, 0.1);
     #control-path {
-      stroke: red;
+      stroke: var(--active-drag-clr);
     }
     .control-point {
       opacity: 1;
-      fill: red;
+      fill: var(--active-drag-clr);
     }
   }
   &.show {
-    background: rgba(0, 0, 0, 0.1);
+    // background: rgba(0, 0, 0, 0.4)
+    outline: 1px dotted var(--secondary-clr)
   }
 }
 
@@ -71,19 +93,9 @@ hr {
 
 .control-point {
   opacity: 1;
-  fill: rgba(0,0,0,1);
+  fill: var(--secondary-clr);
   stroke-width: 2px;
-}
-
-// 
-.dropzone-preview {
-  z-index: 3;
-  pointer-events: none;
-  opacity: 0;
-  position: absolute;
-  &.show {
-    opacity: 1;
-  }
+  stroke: var(--text-clr-light);
 }
 
 //
@@ -97,52 +109,6 @@ hr {
   max-width: 320px;
 }
 
-@mixin content-block {
-  cursor: default;
-  background: var(--secondary-clr);
-  padding: 24px;
-  margin-bottom: 8px;
-  color: white;
-  font-size: 14px;
-  overflow: hidden;
-  position: relative;
-  // transition: all 0.04s ease-in;
-  ul {
-    padding-left: 24px;
-    margin: 0;
-    list-style: none;
-    li {
-      &:before {
-        position: absolute;
-        content: "\2022";
-        color: var(--main-clr);
-        font-weight: bold;
-        display: inline-block;
-        width: 1em;
-        margin-left: -24px;
-      }
-    }
-  }
-  p {
-    margin-top: 8px;
-    margin-bottom: 16px;
-    line-height: 1.4;
-  }
-  h3 {
-    font-size: 14px;
-    opacity: 0.4;
-    margin-top: 0;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-  }
-  &.hide {
-    opacity: 0;
-    height: 0;
-    padding: 0 24px;
-    margin-bottom: 0;
-  }
-}
-
 .content-block {
   @include content-block;
 }
@@ -151,12 +117,10 @@ hr {
   display: flex;
 }
 
-
 .close-btn {
   cursor: pointer;
   width: 30px;
   height: 30px;
-  // background: rgba(150, 255, 255, 0.4);
   position: absolute;
   right: 12px;
   top: 8px;
@@ -167,7 +131,7 @@ hr {
     content: "";
     width: 16px;
     height: 3px;
-    background: white;
+    background: var(--text-clr-light);
     display: inline-block;
     position: absolute;
     top: 50%;
@@ -179,41 +143,17 @@ hr {
   }
 }
 
-@mixin btn-mixin($font-clr, $bck-clr, $hover-bck-clr){
-  cursor: pointer;
-  font-size: 15px;
-  text-transform: uppercase;
-  padding: 16px 16px;
-  background: $bck-clr;
-  color: $font-clr;
-  transition: all 0.05s ease-in-out;
-  &:focus {
-    outline: none;
-  }
-  &:hover {
-    background: $hover-bck-clr !important;
-    color: white !important;
-  }
-}
-
-.primary-btn {
-  @include btn-mixin(var(--main-clr), var(--secondary-clr), var(--secondary-clr));
-  border: none;
-  &.active {
-    background: var(--main-clr);
-    color: var(--secondary-clr);
-  }
-}
-
 .secondary-btn {
   @include btn-mixin(var(--secondary-clr),white, var(--secondary-clr));
-  border: var(--border-width) solid var(--secondary-clr);
+  border: var(--border-width) solid var(--main-clr);
+  color: #111;
   &.active {
     background: var(--main-clr);
     border: var(--border-width) solid var(--main-clr);
+    color: var(--text-clr-dark);
     &:hover {
       background: var(--main-clr) !important;
-      border: var(--border-width) solid var(--secondary-clr) !important;
+      border: var(--border-width) solid var(--text-clr-dark) !important;
       color: var(--secondary-clr) !important;
     }
   }
@@ -333,7 +273,6 @@ hr {
     border: var(--border-width) solid #000000;
     cursor: pointer;
     margin-top: 0px;
-    /*Needed to keep the Edge thumb centred*/
   }
   input[type=range]:focus::-ms-fill-lower {
     background: var(--main-clr);
@@ -362,9 +301,10 @@ hr {
       margin-top: 16px;
       margin-right: 10px;
       display: inline-block;
-      width: 20px;
-      height: 20px;
+      width: 24px;
+      height: 24px;
       background: white;
+      border: var(--border-width) solid var(--text-clr-light)
     }
   }
   input[type="checkbox"]:checked {
@@ -379,8 +319,8 @@ hr {
         background: var(--secondary-clr);
         display: inline-block;
         position: absolute;
-        bottom: 8px;
-        left: 0;
+        bottom: 11px;
+        left: 2px;
         transform: rotate(-45deg);
       }
     }
@@ -389,6 +329,7 @@ hr {
 
 //////
 .switcher {
+  z-index: 999;
   position: absolute;
   top: 16px;
   right: 16px;
@@ -401,16 +342,19 @@ hr {
       position: relative;
       cursor: pointer;
       padding: 0;
+      color: var(--secondary-clr);
     }
     & + label:after {
       content: '';
       position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
       left: -42px;
       display: inline-block;
       width: 14px;
       height: 20px;
       background: white;
-      border: var(--border-width) solid black;
+      border: var(--border-width) solid var(--secondary-clr);;
       transition: all 0.08s ease-in-out;
     }
     & + label:before {
@@ -422,7 +366,7 @@ hr {
       width: 32px;
       height: 20px;
       background: var(--main-clr);
-      border: var(--border-width) solid black;
+      border: var(--border-width) solid var(--secondary-clr);;
     }
   }
   input[type="checkbox"]:checked {

@@ -8,6 +8,7 @@ import generateMeshPoints from "./generateMeshPoints";
 import saveResult from "./saveResults";
 import moveCanvas from "./moveCanvas";
 import toggleControls from "./toggleControls";
+import changeTheme from "./changeTheme";
 
 import { testSVG } from "./assets/svg-test-strings";
 
@@ -227,6 +228,7 @@ actions.showOriginalBox.addEventListener(
   false
 );
 
+changeTheme();
 toggleControls();
 moveCanvas(svgContainer);
 saveResult(document.getElementById("save-result-btn"), svgElement);

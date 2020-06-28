@@ -1,0 +1,61 @@
+@mixin content-block {
+  cursor: default;
+  background: var(--secondary-clr);
+  padding: 24px;
+  margin-bottom: 8px;
+  color: var(--text-clr-light);
+  font-size: 14px;
+  overflow: hidden;
+  position: relative;
+  ul {
+    padding-left: 24px;
+    margin: 0;
+    list-style: none;
+    li {
+      &:before {
+        position: absolute;
+        content: "\2022";
+        color: var(--main-clr);
+        font-weight: bold;
+        display: inline-block;
+        width: 1em;
+        margin-left: -24px;
+      }
+    }
+  }
+  p {
+    margin-top: 8px;
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+  h3 {
+    font-size: 14px;
+    opacity: 0.4;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  &.hide {
+    opacity: 0;
+    height: 0;
+    padding: 0 24px;
+    margin-bottom: 0;
+  }
+}
+
+@mixin btn-mixin($font-clr, $bck-clr, $hover-bck-clr){
+  cursor: pointer;
+  font-size: 15px;
+  text-transform: uppercase;
+  padding: 16px 16px;
+  background: $bck-clr;
+  color: $font-clr;
+  transition: all 0.05s ease-in-out;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    background: $hover-bck-clr !important;
+    color: var(--main-clr) !important;
+  }
+}

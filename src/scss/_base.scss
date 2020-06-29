@@ -1,0 +1,24 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+*::selection {
+  color: var(--secondary-clr);
+  background: var(--main-clr);
+}
+
+body {
+  overflow: hidden;
+}
+
+hr {
+  border: none;
+  border-top: 1px dashed var(--text-clr-light);
+  opacity: 0.4;
+  margin: 24px 0 10px;
+}

@@ -1,50 +1,11 @@
-@import "./mixins";
-@import "./dragndrop-zone";
-@import "./controls";
+@import './_variables';
+@import './mixins';
+@import './_base';
+@import './svg';
+@import './dragndrop-zone';
+@import './controls';
+@import './loader';
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&display=swap');
-
-:root {
-  --border-width: 2px;
-  --main-clr: #35FFCE;
-  --secondary-clr: #111;
-  --background-clr: white;
-  --text-clr-light: white;
-  --text-clr-dark: #111;
-  --btn-border-clr: var(--main-clr);
-  --active-drag-clr: #f45;
-}
-
-.dark-theme {
-  --main-clr: #111;
-  --secondary-clr: #35FFCE;
-  --background-clr: rgb(29, 29, 29);
-  --text-clr-light: #111;
-  --text-clr-dark: white;
-  --btn-border-clr: white;
-}
-
-*, *:before, *:after {
-  box-sizing: border-box;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
-
-*::selection {
-  color: var(--secondary-clr);
-  background: var(--main-clr);
-}
-
-body {
-  overflow: hidden;
-}
-
-hr {
-  border: none;
-  border-top: 1px dashed var(--text-clr-light);
-  opacity: 0.4;
-  margin: 24px 0 10px;
-}
 
 #app {
   display: flex;
@@ -53,50 +14,6 @@ hr {
   width: 100%;
   font-family: 'IBM Plex Mono', monospace;
   background: var(--background-clr);
-}
-
-#svg-element {
-  overflow: visible;
-  width: 100%;
-  height: 100%;
-}
-
-#svg-container {
-  margin: auto;
-  position: relative;
-}
-
-#svg-control {
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-  position: absolute;
-  &:hover {
-    #control-path {
-      stroke: var(--active-drag-clr);
-    }
-    .control-point {
-      opacity: 1;
-      fill: var(--active-drag-clr);
-    }
-  }
-  &.show {
-    // background: rgba(0, 0, 0, 0.4)
-    outline: 1px dotted var(--secondary-clr)
-  }
-}
-
-#control-path {
-  fill: none;
-  stroke: rgba(0, 0, 0, 0.1);
-  stroke-width: 1px;
-}
-
-.control-point {
-  opacity: 1;
-  fill: var(--secondary-clr);
-  stroke-width: 2px;
-  stroke: var(--text-clr-light);
 }
 
 //
@@ -129,7 +46,7 @@ hr {
   transition: all 0.1s ease;
   &:after {
     pointer-events: none;
-    content: "";
+    content: '';
     width: 16px;
     height: 3px;
     background: var(--text-clr-light);
@@ -145,7 +62,7 @@ hr {
 }
 
 .secondary-btn {
-  @include btn-mixin(var(--secondary-clr),white, var(--secondary-clr));
+  @include btn-mixin(var(--secondary-clr), white, var(--secondary-clr));
   border: var(--border-width) solid var(--main-clr);
   color: #111;
   &.active {
@@ -169,7 +86,7 @@ hr {
   margin-right: 8px;
 }
 
-// 
+//
 .links {
   display: flex;
   padding: 16px 0 8px;

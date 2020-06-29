@@ -1,0 +1,44 @@
+#svg-element {
+  overflow: visible;
+  width: 100%;
+  height: 100%;
+}
+
+#svg-container {
+  margin: auto;
+  position: relative;
+}
+
+#svg-control {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  position: absolute;
+  &:hover {
+    #control-path {
+      stroke: var(--active-drag-clr);
+      opacity: 0.6;
+    }
+    .control-point {
+      opacity: 1;
+      fill: var(--active-drag-clr);
+    }
+  }
+  &.show {
+    outline: 1px dotted var(--secondary-clr);
+  }
+}
+
+#control-path {
+  fill: none;
+  stroke: var(--text-clr-dark);
+  stroke-width: 1px;
+  opacity: 0.15;
+}
+
+.control-point {
+  opacity: 1;
+  fill: var(--secondary-clr);
+  stroke-width: 2px;
+  stroke: var(--text-clr-light);
+}

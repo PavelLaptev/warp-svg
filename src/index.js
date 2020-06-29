@@ -1,30 +1,30 @@
-import "./scss/styles.scss";
-import "normalize.css";
-import Warp from "warpjs";
-import gsap from "gsap";
-import Draggable from "gsap/Draggable";
-import dropZone from "./dropzone";
-import generateMeshPoints from "./generateMeshPoints";
-import saveResult from "./saveResults";
-import moveCanvas from "./moveCanvas";
-import toggleControls from "./toggleControls";
-import changeTheme from "./changeTheme";
-import loader from "./loader";
+import './scss/styles.scss';
+import 'normalize.css';
+import Warp from 'warpjs';
+import gsap from 'gsap';
+import Draggable from 'gsap/Draggable';
+import dropZone from './dropzone';
+import generateMeshPoints from './generateMeshPoints';
+import saveResult from './saveResults';
+import moveCanvas from './moveCanvas';
+import toggleControls from './toggleControls';
+import changeTheme from './changeTheme';
+import loader from './loader';
 
-import { testSVG } from "./assets/svg-test-strings";
+import { testSVG } from './assets/svg-test-strings';
 
 loader();
 
 gsap.registerPlugin(Draggable);
 
 let svgString = testSVG;
-const svgContainer = document.getElementById("svg-container");
-const svgElement = document.getElementById("svg-element");
-const svgControl = document.getElementById("svg-control");
+const svgContainer = document.getElementById('svg-container');
+const svgElement = document.getElementById('svg-element');
+const svgControl = document.getElementById('svg-control');
 
 const actions = {
-  meshComplexity: document.getElementById("mesh-complexity"),
-  showOriginalBox: document.getElementById("show-original-box-btn")
+  meshComplexity: document.getElementById('mesh-complexity'),
+  showOriginalBox: document.getElementById('show-original-box-btn'),
 };
 
 let width = svgContainer.clientWidth;
@@ -33,25 +33,36 @@ let complexityLevel = actions.meshComplexity.value;
 
 function parseSVGString(svgString) {
   const parser = new DOMParser();
-  const svgDOM = parser.parseFromString(svgString, "image/svg+xml");
-  const svgViewBox = svgDOM.firstChild.getAttribute("viewBox");
-  const svgFill = svgDOM.firstChild.getAttribute("fill");
+  const svgDOM = parser
+    .parseFromString(svgString, 'image/svg+xml')
+    .getElementsByTagName('svg')[0];
+  const svgViewBox = svgDOM.attributes.viewBox.value;
+  const svgFill = svgDOM.attributes.fill
+    ? svgDOM.attributes.fill.value
+    : 'none';
+
+  // console.log(svgDOM.children);
+  // console.log(svgElement);
+  const parsedSVGWidth = svgDOM.attributes.width
+    ? svgDOM.attributes.width.value
+    : 500;
+  const parsedSVGheight = svgDOM.attributes.height
+    ? svgDOM.attributes.height.value
+    : 500;
 
   const newContainerHeight = Math.round(
-    width /
-      (svgDOM.firstChild.getAttribute("width") /
-        svgDOM.firstChild.getAttribute("height"))
+    width / (parsedSVGWidth / parsedSVGheight)
   );
   svgContainer.style.height = `${newContainerHeight}px`;
   height = newContainerHeight;
 
-  svgElement.setAttribute("viewBox", svgViewBox);
-  svgElement.setAttribute("fill", svgFill);
-  svgElement.innerHTML = svgDOM.firstChild.innerHTML.toString();
+  svgElement.setAttribute('viewBox', svgViewBox);
+  svgElement.setAttribute('fill', svgFill);
+  svgElement.innerHTML = svgDOM.innerHTML.toString();
 }
 
 function init(firstInit = false) {
-  const controlPath = document.getElementById("control-path");
+  const controlPath = document.getElementById('control-path');
   parseSVGString(svgString);
   console.log(`first init is ${firstInit}`);
 
@@ -68,7 +79,7 @@ function init(firstInit = false) {
 
   //
   // Compute weights from control points
-  warp.transform(function(v0, V = controlPoints) {
+  warp.transform(function (v0, V = controlPoints) {
     const A = [];
     const W = [];
     const L = [];
@@ -134,25 +145,25 @@ function init(firstInit = false) {
       path.push(`L${V[i][0]} ${V[i][1]}`);
     }
 
-    path.push("Z");
-    element.setAttribute("d", path.join(""));
+    path.push('Z');
+    element.setAttribute('d', path.join(''));
   }
 
   function drawCircle(element, pos = { x: 0, y: 0 }, index) {
     const circle = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "circle"
+      'http://www.w3.org/2000/svg',
+      'circle'
     );
-    circle.setAttributeNS(null, "class", "control-point");
-    circle.setAttributeNS(null, "cx", pos.x);
-    circle.setAttributeNS(null, "cy", pos.y);
-    circle.setAttributeNS(null, "r", 6);
+    circle.setAttributeNS(null, 'class', 'control-point');
+    circle.setAttributeNS(null, 'cx', pos.x);
+    circle.setAttributeNS(null, 'cy', pos.y);
+    circle.setAttributeNS(null, 'r', 6);
     element.appendChild(circle);
 
     Draggable.create(circle, {
-      type: "x,y",
+      type: 'x,y',
       // bounds: svgControl,
-      onDrag: function() {
+      onDrag: function () {
         const relativeX =
           this.pointerX - svgControl.getBoundingClientRect().left;
         const relativeY =
@@ -160,7 +171,7 @@ function init(firstInit = false) {
         controlPoints[index] = [relativeX, relativeY];
         drawControlShape();
         warp.transform(reposition);
-      }
+      },
     });
   }
 
@@ -185,7 +196,7 @@ function init(firstInit = false) {
       [260, 6],
       [500, 30],
       [460, -10],
-      [110, -80]
+      [110, -80],
     ];
   }
   drawControlShape();
@@ -194,17 +205,17 @@ function init(firstInit = false) {
 }
 
 const createNewControlPath = () => {
-  svgControl.innerHTML = "";
+  svgControl.innerHTML = '';
   const newControlPath = document.createElementNS(
-    "http://www.w3.org/2000/svg",
-    "path"
+    'http://www.w3.org/2000/svg',
+    'path'
   );
-  newControlPath.setAttributeNS(null, "id", "control-path");
+  newControlPath.setAttributeNS(null, 'id', 'control-path');
   svgControl.appendChild(newControlPath);
 };
 
 /////////
-dropZone(result => {
+dropZone((result) => {
   svgString = result;
   createNewControlPath();
   init();
@@ -212,8 +223,8 @@ dropZone(result => {
 
 /////////
 actions.meshComplexity.addEventListener(
-  "change",
-  e => {
+  'change',
+  (e) => {
     complexityLevel = e.target.value;
     createNewControlPath();
     init();
@@ -223,9 +234,9 @@ actions.meshComplexity.addEventListener(
 
 ////////
 actions.showOriginalBox.addEventListener(
-  "change",
+  'change',
   () => {
-    svgControl.classList.toggle("show");
+    svgControl.classList.toggle('show');
     console.log(actions.showOriginalBox.checked);
   },
   false
@@ -234,5 +245,5 @@ actions.showOriginalBox.addEventListener(
 changeTheme();
 toggleControls();
 moveCanvas(svgContainer);
-saveResult(document.getElementById("save-result-btn"), svgElement);
+saveResult(document.getElementById('save-result-btn'), svgElement);
 init(true);

@@ -1,0 +1,19 @@
+:root {
+  --border-width: 2px;
+  --main-clr: #35ffce;
+  --secondary-clr: #111;
+  --background-clr: white;
+  --text-clr-light: white;
+  --text-clr-dark: #111;
+  --btn-border-clr: var(--main-clr);
+  --active-drag-clr: #f45;
+}
+
+.dark-theme {
+  --main-clr: #111;
+  --secondary-clr: #35ffce;
+  --background-clr: rgb(29, 29, 29);
+  --text-clr-light: #111;
+  --text-clr-dark: white;
+  --btn-border-clr: white;
+}

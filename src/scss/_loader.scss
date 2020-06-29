@@ -1,0 +1,32 @@
+#loader {
+  z-index: 999999;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: white;
+  display: flex;
+}
+
+#loader-spinner {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  background-color: var(--secondary-clr);
+  margin: auto;
+  animation-name: transform-animation;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes transform-animation {
+  from {
+    background-color: var(--secondary-clr);
+    transform: scale(0.1) rotate(0deg);
+  }
+  to {
+    background-color: var(--main-clr);
+    transform: scale(0.9) rotate(45deg);
+    border-radius: 100%;
+  }
+}

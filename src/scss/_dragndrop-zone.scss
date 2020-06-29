@@ -10,7 +10,7 @@
     z-index: 99999;
     padding: 100px;
     border: var(--text-clr-dark) solid var(--border-width);
-    transform: translate(-50%, -50%) scale(0.8);
+    transform: translate(-50%, -50%);
     background-color: var(--text-clr-light);
     position: absolute;
     top: 50%;
@@ -36,8 +36,5 @@
   }
   &.show {
     opacity: 1;
-    .info {
-      transform: translate(-50%, -50%) scale(1);
-    } 
   }
 }

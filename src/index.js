@@ -9,8 +9,11 @@ import saveResult from "./saveResults";
 import moveCanvas from "./moveCanvas";
 import toggleControls from "./toggleControls";
 import changeTheme from "./changeTheme";
+import loader from "./loader";
 
 import { testSVG } from "./assets/svg-test-strings";
+
+loader();
 
 gsap.registerPlugin(Draggable);
 

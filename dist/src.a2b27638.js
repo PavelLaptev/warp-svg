@@ -8918,23 +8918,7 @@ var moveAndScaleCanvas = function moveAndScaleCanvas(movingElement) {
       canvasDrag[0].disable();
       document.body.style.cursor = 'default';
     }
-  }); // const zoomElement = document.getElementById('scale-wrap');
-  // let zoom = 1;
-  // document.addEventListener(
-  //   'wheel',
-  //   function (e) {
-  //     if (e.wheelDelta > 0) {
-  //       movingElement.style.transform = `scale(${(zoom += 0.01)})`;
-  //       // console.log(e);
-  //     } else {
-  //       movingElement.style.transform = `scale(${(zoom -= 0.01)})`;
-  //     }
-  //   },
-  //   { passive: false }
-  // );
-  // document.addEventListener('scroll', function (e) {
-  //   console.log(window.scrollY);
-  // });
+  });
 };
 
 var _default = moveAndScaleCanvas;
@@ -8951,35 +8935,13 @@ var toggleControls = function toggleControls() {
   var showInfoBtn = document.getElementById('show-info');
   var infoBlock = document.getElementById('info-block');
   var showSettingsBtn = document.getElementById('show-settings');
-  var settingsBlock = document.getElementById('settings-block'); // let showSettings = true;
-  // let showInfo = true
-  // const igToggle = (flag, elArr) => {
-  //   elArr.map(i => {
-  //     if (flag) {
-  //       i.classList.add("active")
-  //     } else {
-  //       i.classList.remove()
-  //     }
-  //   })
-  // }
-  // const toggleClasses = (target, elArr, classArr) => {
-  //   // console.log(elArr);
-  //   elArr.map((item, i) => {
-  //     target.addEventListener('click', () => {
-  //       console.log(classArr[i]);
-  //       item.classList.toggle(classArr[i]);
-  //       item.classList.toggle(classArr[i]);
-  //     });
-  //   });
-  // };
-  // toggleClasses(showInfoBtn, [showInfoBtn, infoBlock], ['active', 'hide']);
-
+  var settingsBlock = document.getElementById('settings-block');
   showInfoBtn.addEventListener('click', function (e) {
-    e.target.classList.toggle('active');
+    showInfoBtn.classList.toggle('active');
     infoBlock.classList.toggle('hide');
   });
   showSettingsBtn.addEventListener('click', function (e) {
-    e.target.classList.toggle('active');
+    showSettingsBtn.classList.toggle('active');
     settingsBlock.classList.toggle('hide');
   });
   infoBlock.getElementsByClassName('close-btn')[0].addEventListener('click', function () {
@@ -9313,9 +9275,9 @@ actions.showOriginalBox.addEventListener('change', function () {
   svgControl.classList.toggle('show');
 }, false);
 (0, _changeTheme.default)();
-(0, _toggleControls.default)();
 (0, _moveAndScaleCanvas.default)(svgContainer);
 (0, _saveResults.default)(document.getElementById('save-result-btn'), svgElement);
+(0, _toggleControls.default)();
 init(true);
 },{"./scss/styles.scss":"src/scss/styles.scss","normalize.css":"node_modules/normalize.css/normalize.css","warpjs":"node_modules/warpjs/dist/warp.js","gsap":"node_modules/gsap/index.js","gsap/Draggable":"node_modules/gsap/Draggable.js","./dropzone":"src/dropzone.js","./generateMeshPoints":"src/generateMeshPoints.js","./saveResults":"src/saveResults.js","./moveAndScaleCanvas":"src/moveAndScaleCanvas.js","./toggleControls":"src/toggleControls.js","./changeTheme":"src/changeTheme.js","./loader":"src/loader.js","./assets/svg-test-strings":"src/assets/svg-test-strings.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -9345,7 +9307,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62672" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63353" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

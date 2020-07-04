@@ -269,7 +269,7 @@ actions.showOriginalBox.addEventListener(
 );
 
 changeTheme();
-toggleControls();
 moveAndScaleCanvas(svgContainer);
 saveResult(document.getElementById('save-result-btn'), svgElement);
+toggleControls();
 init(true);

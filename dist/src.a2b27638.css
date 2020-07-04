@@ -297,6 +297,7 @@ hr {
 
 .secondary-btn {
   cursor: pointer;
+  user-select: none;
   font-size: 15px;
   text-transform: uppercase;
   padding: 0 16px;

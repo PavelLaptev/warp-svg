@@ -117,7 +117,7 @@ const config = function (env, args) {
         inject: true,
         hash: false,
         filename: 'index.html',
-        template: path.resolve(__dirname, './', 'index.html'),
+        template: path.resolve(__dirname, 'src', 'index.html'),
       }),
       new MiniCssExtractPlugin({
         filename: 'css/[name].css',

@@ -8753,7 +8753,7 @@ _setDefaults(Draggable.prototype, {
 Draggable.zIndex = 1000;
 Draggable.version = "3.3.3";
 _getGSAP() && gsap.registerPlugin(Draggable);
-},{"./utils/matrix.js":"node_modules/gsap/utils/matrix.js"}],"src/dropzone.js":[function(require,module,exports) {
+},{"./utils/matrix.js":"node_modules/gsap/utils/matrix.js"}],"src/js/dropzone.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -8800,7 +8800,7 @@ var dropZone = function dropZone(callback) {
 
 var _default = dropZone;
 exports.default = _default;
-},{}],"src/generateMeshPoints.js":[function(require,module,exports) {
+},{}],"src/js/generateMeshPoints.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -8846,7 +8846,7 @@ var generateMeshPoints = function generateMeshPoints(width, height, amount) {
 
 var _default = generateMeshPoints;
 exports.default = _default;
-},{}],"src/downloadAsFile.js":[function(require,module,exports) {
+},{}],"src/js/downloadAsFile.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -8867,7 +8867,7 @@ var downloadAsFile = function downloadAsFile(content, filename, contentType) {
 
 var _default = downloadAsFile;
 exports.default = _default;
-},{}],"src/saveResults.js":[function(require,module,exports) {
+},{}],"src/js/saveResults.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -8887,7 +8887,7 @@ var saveResult = function saveResult(btn, content) {
 
 var _default = saveResult;
 exports.default = _default;
-},{"./downloadAsFile":"src/downloadAsFile.js"}],"src/moveAndScaleCanvas.js":[function(require,module,exports) {
+},{"./downloadAsFile":"src/js/downloadAsFile.js"}],"src/js/moveAndScaleCanvas.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -8923,7 +8923,7 @@ var moveAndScaleCanvas = function moveAndScaleCanvas(movingElement) {
 
 var _default = moveAndScaleCanvas;
 exports.default = _default;
-},{"gsap/Draggable":"node_modules/gsap/Draggable.js"}],"src/toggleControls.js":[function(require,module,exports) {
+},{"gsap/Draggable":"node_modules/gsap/Draggable.js"}],"src/js/toggleControls.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -8956,7 +8956,7 @@ var toggleControls = function toggleControls() {
 
 var _default = toggleControls;
 exports.default = _default;
-},{}],"src/changeTheme.js":[function(require,module,exports) {
+},{}],"src/js/changeTheme.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -8973,23 +8973,6 @@ var changeTheme = function changeTheme() {
 };
 
 var _default = changeTheme;
-exports.default = _default;
-},{}],"src/loader.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var loader = function loader() {
-  window.onload = function () {
-    document.getElementById('app').style.opacity = 1;
-    document.getElementById('loader').style.display = 'none';
-  };
-};
-
-var _default = loader;
 exports.default = _default;
 },{}],"src/assets/svg-test-strings.js":[function(require,module,exports) {
 "use strict";
@@ -9024,19 +9007,17 @@ var _gsap = _interopRequireDefault(require("gsap"));
 
 var _Draggable = _interopRequireDefault(require("gsap/Draggable"));
 
-var _dropzone = _interopRequireDefault(require("./dropzone"));
+var _dropzone = _interopRequireDefault(require("./js/dropzone"));
 
-var _generateMeshPoints = _interopRequireDefault(require("./generateMeshPoints"));
+var _generateMeshPoints = _interopRequireDefault(require("./js/generateMeshPoints"));
 
-var _saveResults = _interopRequireDefault(require("./saveResults"));
+var _saveResults = _interopRequireDefault(require("./js/saveResults"));
 
-var _moveAndScaleCanvas = _interopRequireDefault(require("./moveAndScaleCanvas"));
+var _moveAndScaleCanvas = _interopRequireDefault(require("./js/moveAndScaleCanvas"));
 
-var _toggleControls = _interopRequireDefault(require("./toggleControls"));
+var _toggleControls = _interopRequireDefault(require("./js/toggleControls"));
 
-var _changeTheme = _interopRequireDefault(require("./changeTheme"));
-
-var _loader = _interopRequireDefault(require("./loader"));
+var _changeTheme = _interopRequireDefault(require("./js/changeTheme"));
 
 var _svgTestStrings = require("./assets/svg-test-strings");
 
@@ -9060,25 +9041,30 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-(0, _loader.default)();
+////////////////////////////////////////////////////////////////////
+////////////////// Register GSAP Draggable Plugin //////////////////
+////////////////////////////////////////////////////////////////////
+_gsap.default.registerPlugin(_Draggable.default); ////////////////////////////////////////////////////////////////////
+//////////////////////// Initial Variables /////////////////////////
+////////////////////////////////////////////////////////////////////
 
-_gsap.default.registerPlugin(_Draggable.default);
 
 var svgString = _svgTestStrings.testSVG;
+var zoom = 1;
+var draggableControlPonts = [];
 var svgContainer = document.getElementById('svg-container');
 var svgElement = document.getElementById('svg-element');
 var svgControl = document.getElementById('svg-control');
-var zoomElement = document.getElementById('scale-wrap'); // const controlPath = document.getElementById('control-path');
-
-var zoom = 1;
-var draggableControlPonts = [];
+var zoomElement = document.getElementById('scale-wrap');
 var actions = {
   meshComplexity: document.getElementById('mesh-complexity'),
   showOriginalBox: document.getElementById('show-original-box-btn')
 };
 var width = svgContainer.clientWidth;
 var height = svgContainer.clientHeight;
-var complexityLevel = actions.meshComplexity.value;
+var complexityLevel = actions.meshComplexity.value; ////////////////////////////////////////////////////////////////////
+//////////////////////// Parse SVG String //////////////////////////
+////////////////////////////////////////////////////////////////////
 
 function parseSVGString(svgString) {
   var svgDOM = new DOMParser().parseFromString(svgString, 'image/svg+xml').getElementsByTagName('svg')[0];
@@ -9092,7 +9078,10 @@ function parseSVGString(svgString) {
   svgDOM.attributes.fill ? svgElement.setAttribute('fill', svgDOM.attributes.fill.value) : svgElement.setAttribute('fill', 'inherit');
   svgElement.setAttribute('preserveAspectRatio', 'xMidYMin meet');
   svgElement.innerHTML = svgDOM.innerHTML.toString();
-}
+} ////////////////////////////////////////////////////////////////////
+//////////////////////// Initial function //////////////////////////
+////////////////////////////////////////////////////////////////////
+
 
 function init() {
   var firstInit = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
@@ -9105,8 +9094,7 @@ function init() {
   var warp = new _warpjs.default(svgElement);
   warp.interpolate(200); // Start with a rectangle, then distort it later
 
-  var controlPoints = (0, _generateMeshPoints.default)(width, height, Number(complexityLevel)); //
-  // Compute weights from control points
+  var controlPoints = (0, _generateMeshPoints.default)(width, height, Number(complexityLevel)); // Compute weights from control points
 
   warp.transform(function (v0) {
     var V = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : controlPoints;
@@ -9149,8 +9137,7 @@ function init() {
 
 
     return [].concat(_toConsumableArray(v0), L);
-  }); //
-  // Warp function
+  }); // Warp function
 
   function reposition(_ref) {
     var _ref2 = _toArray(_ref),
@@ -9168,7 +9155,8 @@ function init() {
     }
 
     return [nx, ny].concat(_toConsumableArray(W));
-  }
+  } // Draw control shape
+
 
   function drawControlShape() {
     var element = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : controlPath;
@@ -9181,7 +9169,8 @@ function init() {
 
     path.push('Z');
     element.setAttribute('d', path.join(''));
-  }
+  } // Draw control point
+
 
   function drawPoint(element) {
     var pos = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
@@ -9207,7 +9196,8 @@ function init() {
         warp.transform(reposition);
       }
     });
-  }
+  } // Place control points
+
 
   function drawControlPoints() {
     var element = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : svgControl;
@@ -9219,7 +9209,7 @@ function init() {
       }, index);
       return null;
     });
-  } //
+  } // if this is the first launch
 
 
   if (firstInit) {
@@ -9229,7 +9219,8 @@ function init() {
   drawControlShape();
   drawControlPoints();
   warp.transform(reposition);
-}
+} /////////
+
 
 var createNewControlPath = function createNewControlPath() {
   svgControl.innerHTML = '';
@@ -9273,13 +9264,14 @@ actions.meshComplexity.addEventListener('change', function (e) {
 
 actions.showOriginalBox.addEventListener('change', function () {
   svgControl.classList.toggle('show');
-}, false);
+}, false); // Initial calling
+
 (0, _changeTheme.default)();
 (0, _moveAndScaleCanvas.default)(svgContainer);
 (0, _saveResults.default)(document.getElementById('save-result-btn'), svgElement);
 (0, _toggleControls.default)();
 init(true);
-},{"./scss/styles.scss":"src/scss/styles.scss","normalize.css":"node_modules/normalize.css/normalize.css","warpjs":"node_modules/warpjs/dist/warp.js","gsap":"node_modules/gsap/index.js","gsap/Draggable":"node_modules/gsap/Draggable.js","./dropzone":"src/dropzone.js","./generateMeshPoints":"src/generateMeshPoints.js","./saveResults":"src/saveResults.js","./moveAndScaleCanvas":"src/moveAndScaleCanvas.js","./toggleControls":"src/toggleControls.js","./changeTheme":"src/changeTheme.js","./loader":"src/loader.js","./assets/svg-test-strings":"src/assets/svg-test-strings.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./scss/styles.scss":"src/scss/styles.scss","normalize.css":"node_modules/normalize.css/normalize.css","warpjs":"node_modules/warpjs/dist/warp.js","gsap":"node_modules/gsap/index.js","gsap/Draggable":"node_modules/gsap/Draggable.js","./js/dropzone":"src/js/dropzone.js","./js/generateMeshPoints":"src/js/generateMeshPoints.js","./js/saveResults":"src/js/saveResults.js","./js/moveAndScaleCanvas":"src/js/moveAndScaleCanvas.js","./js/toggleControls":"src/js/toggleControls.js","./js/changeTheme":"src/js/changeTheme.js","./assets/svg-test-strings":"src/assets/svg-test-strings.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -9307,7 +9299,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63353" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51163" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

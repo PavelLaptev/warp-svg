@@ -129,6 +129,98 @@ hr {
   opacity: 1;
 }
 
+.actions {
+  z-index: 9999;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  max-width: 320px;
+}
+
+.content-block {
+  cursor: default;
+  background: var(--secondary-clr);
+  padding: 24px;
+  margin-bottom: 8px;
+  color: var(--text-clr-light);
+  font-size: 14px;
+  overflow: hidden;
+  position: relative;
+}
+.content-block ul {
+  padding-left: 24px;
+  margin: 0;
+  list-style: none;
+}
+.content-block ul li:before {
+  position: absolute;
+  content: "•";
+  color: var(--main-clr);
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -24px;
+}
+.content-block p {
+  margin-top: 8px;
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+.content-block h3 {
+  font-size: 14px;
+  opacity: 0.4;
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+.content-block.hide {
+  opacity: 0;
+  height: 0;
+  padding: 0 24px;
+  margin-bottom: 0;
+}
+
+.action-buttons {
+  display: flex;
+}
+
+.close-btn {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: 12px;
+  top: 8px;
+  opacity: 0.4;
+  transition: all 0.1s ease;
+}
+.close-btn:after {
+  pointer-events: none;
+  content: "";
+  width: 16px;
+  height: 3px;
+  background: var(--text-clr-light);
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.close-btn:hover {
+  opacity: 1;
+}
+
+#show-settings {
+  margin-right: 8px;
+}
+
+#show-info {
+  text-transform: lowercase;
+  margin-right: 8px;
+}
+
 .range-selector {
   margin-bottom: 32px;
 }
@@ -365,98 +457,6 @@ hr {
   width: 100%;
   font-family: "IBM Plex Mono", monospace;
   background: var(--background-clr);
-}
-
-.actions {
-  z-index: 9999;
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  display: flex;
-  flex-direction: column;
-  max-width: 320px;
-}
-
-.content-block {
-  cursor: default;
-  background: var(--secondary-clr);
-  padding: 24px;
-  margin-bottom: 8px;
-  color: var(--text-clr-light);
-  font-size: 14px;
-  overflow: hidden;
-  position: relative;
-}
-.content-block ul {
-  padding-left: 24px;
-  margin: 0;
-  list-style: none;
-}
-.content-block ul li:before {
-  position: absolute;
-  content: "•";
-  color: var(--main-clr);
-  font-weight: bold;
-  display: inline-block;
-  width: 1em;
-  margin-left: -24px;
-}
-.content-block p {
-  margin-top: 8px;
-  margin-bottom: 16px;
-  line-height: 1.4;
-}
-.content-block h3 {
-  font-size: 14px;
-  opacity: 0.4;
-  margin-top: 0;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-}
-.content-block.hide {
-  opacity: 0;
-  height: 0;
-  padding: 0 24px;
-  margin-bottom: 0;
-}
-
-.action-buttons {
-  display: flex;
-}
-
-.close-btn {
-  cursor: pointer;
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  right: 12px;
-  top: 8px;
-  opacity: 0.4;
-  transition: all 0.1s ease;
-}
-.close-btn:after {
-  pointer-events: none;
-  content: "";
-  width: 16px;
-  height: 3px;
-  background: var(--text-clr-light);
-  display: inline-block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.close-btn:hover {
-  opacity: 1;
-}
-
-#show-settings {
-  margin-right: 8px;
-}
-
-#show-info {
-  text-transform: lowercase;
-  margin-right: 8px;
 }
 
 .links {

@@ -46,6 +46,7 @@
 @mixin btn-mixin($font-clr, $bck-clr, $hover-bck-clr) {
   cursor: pointer;
   user-select: none;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 15px;
   text-transform: uppercase;
   padding: 0 16px;

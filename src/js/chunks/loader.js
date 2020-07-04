@@ -5,4 +5,4 @@ const loader = () => {
   };
 };
 
-loader();
+export default loader;

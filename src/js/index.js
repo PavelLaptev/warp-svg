@@ -1,5 +1,5 @@
 import '../scss/styles.scss';
-import 'normalize.css';
+// import 'normalize.css';
 import Warp from 'warpjs';
 import gsap from 'gsap';
 import Draggable from 'gsap/Draggable';
@@ -9,20 +9,22 @@ import saveResult from './chunks/saveResults';
 import moveAndScaleCanvas from './chunks/moveAndScaleCanvas';
 import toggleControls from './chunks/toggleControls';
 import changeTheme from './chunks/changeTheme';
+import loader from './chunks/loader';
 
-import { testSVG } from '../assets/svg-test-strings';
+import { testSVG } from './chunks/svg-test-string';
 
-////////////////////////////////////////////////////////////////////
-////////////////// Register GSAP Draggable Plugin //////////////////
-////////////////////////////////////////////////////////////////////
+/// /////////////////////////////////////////////////////////////////
+/// /////////// Register GSAP Draggable and Loader //////////////////
+/// /////////////////////////////////////////////////////////////////
+loader();
 gsap.registerPlugin(Draggable);
 
-////////////////////////////////////////////////////////////////////
-//////////////////////// Initial Variables /////////////////////////
-////////////////////////////////////////////////////////////////////
+/// /////////////////////////////////////////////////////////////////
+/// ///////////////////// Initial Variables /////////////////////////
+/// /////////////////////////////////////////////////////////////////
 let svgString = testSVG;
 let zoom = 1;
-let draggableControlPonts = [];
+const draggableControlPonts = [];
 
 const svgContainer = document.getElementById('svg-container');
 const svgElement = document.getElementById('svg-element');
@@ -38,9 +40,9 @@ let width = svgContainer.clientWidth;
 let height = svgContainer.clientHeight;
 let complexityLevel = actions.meshComplexity.value;
 
-////////////////////////////////////////////////////////////////////
-//////////////////////// Parse SVG String //////////////////////////
-////////////////////////////////////////////////////////////////////
+/// /////////////////////////////////////////////////////////////////
+/// ///////////////////// Parse SVG String //////////////////////////
+/// /////////////////////////////////////////////////////////////////
 function parseSVGString(svgString) {
   const svgDOM = new DOMParser()
     .parseFromString(svgString, 'image/svg+xml')
@@ -69,13 +71,13 @@ function parseSVGString(svgString) {
   svgElement.innerHTML = svgDOM.innerHTML.toString();
 }
 
-////////////////////////////////////////////////////////////////////
-//////////////////////// Initial function //////////////////////////
-////////////////////////////////////////////////////////////////////
+/// /////////////////////////////////////////////////////////////////
+/// ///////////////////// Initial function //////////////////////////
+/// /////////////////////////////////////////////////////////////////
 function init(firstInit = false) {
   const controlPath = document.getElementById('control-path');
   parseSVGString(svgString);
-  zoomElement.style.transform = `scale(1)`;
+  zoomElement.style.transform = 'scale(1)';
   zoom = 1;
 
   // Need to interpolate first, so angles remain sharp
@@ -86,7 +88,7 @@ function init(firstInit = false) {
   let controlPoints = generateMeshPoints(
     width,
     height,
-    Number(complexityLevel)
+    Number(complexityLevel),
   );
 
   // Compute weights from control points
@@ -164,7 +166,7 @@ function init(firstInit = false) {
   function drawPoint(element, pos = { x: 0, y: 0 }, index) {
     const point = document.createElementNS(
       'http://www.w3.org/2000/svg',
-      'circle'
+      'circle',
     );
     point.setAttributeNS(null, 'class', 'control-point');
     point.setAttributeNS(null, 'cx', pos.x);
@@ -177,10 +179,8 @@ function init(firstInit = false) {
     Draggable.create(point, {
       type: 'x,y',
       onDrag: function () {
-        const relativeX =
-          (this.pointerX - svgControl.getBoundingClientRect().left) / zoom;
-        const relativeY =
-          (this.pointerY - svgControl.getBoundingClientRect().top) / zoom;
+        const relativeX = (this.pointerX - svgControl.getBoundingClientRect().left) / zoom;
+        const relativeY = (this.pointerY - svgControl.getBoundingClientRect().top) / zoom;
 
         controlPoints[index] = [relativeX, relativeY];
         drawControlShape();
@@ -219,36 +219,34 @@ function init(firstInit = false) {
   warp.transform(reposition);
 }
 
-/////////
+/// //////
 const createNewControlPath = () => {
   svgControl.innerHTML = '';
   const newControlPath = document.createElementNS(
     'http://www.w3.org/2000/svg',
-    'path'
+    'path',
   );
   newControlPath.setAttributeNS(null, 'id', 'control-path');
   svgControl.appendChild(newControlPath);
 };
 
-/////////
+/// //////
 dropZone((result) => {
   svgString = result;
   createNewControlPath();
   init();
 });
 
-///////
+/// ////
 document.addEventListener('wheel', function (e) {
   const controlPath = document.getElementById('control-path');
   if (e.wheelDelta > 0) {
     zoomElement.style.transform = `scale(${(zoom += 0.02)})`;
     controlPath.style.strokeWidth = `${1 / zoom}px`;
     // console.log(svgControl.querySelectorAll('circle'));
-  } else {
-    if (zoomElement.getBoundingClientRect().width >= 30) {
-      zoomElement.style.transform = `scale(${(zoom -= 0.02)})`;
-      controlPath.style.strokeWidth = `${1 / zoom}px`;
-    }
+  } else if (zoomElement.getBoundingClientRect().width >= 30) {
+    zoomElement.style.transform = `scale(${(zoom -= 0.02)})`;
+    controlPath.style.strokeWidth = `${1 / zoom}px`;
   }
   draggableControlPonts.map((i) => {
     if (i.getBoundingClientRect().height > 6) {
@@ -257,7 +255,7 @@ document.addEventListener('wheel', function (e) {
   });
 });
 
-/////////
+/// //////
 actions.meshComplexity.addEventListener(
   'change',
   (e) => {
@@ -265,16 +263,16 @@ actions.meshComplexity.addEventListener(
     createNewControlPath();
     init();
   },
-  false
+  false,
 );
 
-////////
+/// /////
 actions.showOriginalBox.addEventListener(
   'change',
   () => {
     svgControl.classList.toggle('show');
   },
-  false
+  false,
 );
 
 // Initial calling

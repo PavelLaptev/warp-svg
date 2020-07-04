@@ -5,7 +5,7 @@
 const serverConfiguration = {
   internal: {
     server: {
-      baseDir: 'dist',
+      baseDir: './',
     },
     port: 3000,
   },
@@ -116,7 +116,7 @@ const config = function (env, args) {
       new HtmlWebpackPlugin({
         inject: true,
         hash: false,
-        filename: 'index.html',
+        filename: '../index.html',
         template: path.resolve(__dirname, 'src', 'index.html'),
       }),
       new MiniCssExtractPlugin({

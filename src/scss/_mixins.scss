@@ -14,7 +14,7 @@
     li {
       &:before {
         position: absolute;
-        content: "\2022";
+        content: '\2022';
         color: var(--main-clr);
         font-weight: bold;
         display: inline-block;
@@ -43,11 +43,12 @@
   }
 }
 
-@mixin btn-mixin($font-clr, $bck-clr, $hover-bck-clr){
+@mixin btn-mixin($font-clr, $bck-clr, $hover-bck-clr) {
   cursor: pointer;
   font-size: 15px;
   text-transform: uppercase;
-  padding: 16px 16px;
+  padding: 0 16px;
+  height: 54px;
   background: $bck-clr;
   color: $font-clr;
   transition: all 0.05s ease-in-out;

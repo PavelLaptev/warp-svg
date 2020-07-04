@@ -1,21 +1,22 @@
-const dropZone = callback => {
+const dropZone = (callback) => {
   const dropZonePreview = document.getElementsByClassName(
-    "dropzone-preview"
+    'dropzone-preview'
   )[0];
 
-  const toggleDropZone = e => {
+  const toggleDropZone = (e) => {
     e.stopPropagation();
     e.preventDefault();
-    dropZonePreview.classList.toggle("show");
+    dropZonePreview.classList.toggle('show');
     // console.log(e.type);
   };
 
-  const dropEvent = e => {
+  const dropEvent = (e) => {
     toggleDropZone(e);
 
     let fileReader = new FileReader();
     fileReader.readAsText(e.dataTransfer.files[0]);
 
+    // console.log(e.type);
     fileReader.onload = () => {
       try {
         callback(fileReader.result);
@@ -25,12 +26,12 @@ const dropZone = callback => {
     };
   };
 
-  window.addEventListener("dragenter", toggleDropZone);
-  window.addEventListener("dragleave", toggleDropZone);
-  window.addEventListener("dragover", e => e.preventDefault());
-  window.addEventListener("dragstart", e => e.preventDefault());
-  window.addEventListener("drageend", e => e.preventDefault());
-  window.addEventListener("drop", dropEvent);
+  window.addEventListener('dragenter', toggleDropZone);
+  window.addEventListener('dragleave', toggleDropZone);
+  window.addEventListener('dragover', (e) => e.preventDefault());
+  window.addEventListener('dragstart', (e) => e.preventDefault());
+  window.addEventListener('drageend', (e) => e.preventDefault());
+  window.addEventListener('drop', dropEvent);
 };
 
 export default dropZone;

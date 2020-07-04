@@ -52,7 +52,6 @@ hr {
 }
 
 #svg-container {
-  margin: auto;
   position: relative;
 }
 
@@ -74,18 +73,19 @@ hr {
   outline: 1px dotted var(--secondary-clr);
 }
 
+#scale-wrap {
+  margin: auto;
+}
+
 #control-path {
   fill: none;
   stroke: var(--text-clr-dark);
-  stroke-width: 1px;
   opacity: 0.15;
 }
 
 .control-point {
   opacity: 1;
   fill: var(--secondary-clr);
-  stroke-width: 2px;
-  stroke: var(--text-clr-light);
 }
 
 .dropzone-preview {
@@ -130,7 +130,7 @@ hr {
 }
 
 .range-selector {
-  margin-bottom: 26px;
+  margin-bottom: 32px;
 }
 .range-selector input {
   width: 100%;
@@ -219,7 +219,7 @@ hr {
 }
 .checkbox-block input[type=checkbox] + label {
   display: flex;
-  flex-direction: column-reverse;
+  align-items: center;
   position: relative;
   cursor: pointer;
   padding: 0;
@@ -227,8 +227,7 @@ hr {
 .checkbox-block input[type=checkbox] + label:before {
   content: "";
   position: relative;
-  margin-top: 16px;
-  margin-right: 10px;
+  margin-right: 18px;
   display: inline-block;
   width: 24px;
   height: 24px;
@@ -294,6 +293,36 @@ hr {
 }
 .switcher input[type=checkbox]:checked + label:after {
   left: -24px;
+}
+
+.secondary-btn {
+  cursor: pointer;
+  font-size: 15px;
+  text-transform: uppercase;
+  padding: 0 16px;
+  height: 54px;
+  background: white;
+  color: var(--secondary-clr);
+  transition: all 0.05s ease-in-out;
+  border: var(--border-width) solid var(--main-clr);
+  color: #111;
+}
+.secondary-btn:focus {
+  outline: none;
+}
+.secondary-btn:hover {
+  background: var(--secondary-clr) !important;
+  color: var(--main-clr) !important;
+}
+.secondary-btn.active {
+  background: var(--main-clr);
+  border: var(--border-width) solid var(--main-clr);
+  color: var(--text-clr-dark);
+}
+.secondary-btn.active:hover {
+  background: var(--main-clr) !important;
+  border: var(--border-width) solid var(--text-clr-dark) !important;
+  color: var(--secondary-clr) !important;
 }
 
 #loader {
@@ -418,35 +447,6 @@ hr {
 }
 .close-btn:hover {
   opacity: 1;
-}
-
-.secondary-btn {
-  cursor: pointer;
-  font-size: 15px;
-  text-transform: uppercase;
-  padding: 16px 16px;
-  background: white;
-  color: var(--secondary-clr);
-  transition: all 0.05s ease-in-out;
-  border: var(--border-width) solid var(--main-clr);
-  color: #111;
-}
-.secondary-btn:focus {
-  outline: none;
-}
-.secondary-btn:hover {
-  background: var(--secondary-clr) !important;
-  color: var(--main-clr) !important;
-}
-.secondary-btn.active {
-  background: var(--main-clr);
-  border: var(--border-width) solid var(--main-clr);
-  color: var(--text-clr-dark);
-}
-.secondary-btn.active:hover {
-  background: var(--main-clr) !important;
-  border: var(--border-width) solid var(--text-clr-dark) !important;
-  color: var(--secondary-clr) !important;
 }
 
 #show-settings {

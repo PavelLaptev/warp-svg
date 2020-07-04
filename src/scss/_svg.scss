@@ -5,7 +5,6 @@
 }
 
 #svg-container {
-  margin: auto;
   position: relative;
 }
 
@@ -29,16 +28,19 @@
   }
 }
 
+#scale-wrap {
+  margin: auto;
+}
+
 #control-path {
   fill: none;
   stroke: var(--text-clr-dark);
-  stroke-width: 1px;
+  // stroke-width: 1px;
   opacity: 0.15;
 }
 
 .control-point {
   opacity: 1;
   fill: var(--secondary-clr);
-  stroke-width: 2px;
-  stroke: var(--text-clr-light);
+  // stroke-width: 2px;
 }

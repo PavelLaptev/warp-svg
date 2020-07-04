@@ -37,13 +37,16 @@
     <div class="actions">
       <div class="content-block" id="info-block">
         <div class="close-btn"></div>
-        <h3>Info:</h3>
+        <h3>How To Use:</h3>
         <ul>
           <li>
-            <p>Use Drag'n'Drop to upload your SVG File.</p>
+            <p>Use Drag'n'Drop to upload your SVG File</p>
           </li>
           <li>
-            <p>Hold 'Space' and pan to move around the canvas.</p>
+            <p>Hold 'Space' and pan to move around the canvas</p>
+          </li>
+          <li>
+            <p>Scroll to zoom</p>
           </li>
         </ul>
         <hr>
@@ -84,19 +87,23 @@
           i
         </button>
         <button id="show-settings" class="secondary-btn active">
-          ...
+          <span style="font-size: 28px;">⚙</span>
         </button>
         <button id="save-result-btn" class="secondary-btn">
           Save Result
         </button>
       </div>
     </div>
-    <div id="svg-container" style="width: 500px; height: 500px;">
-      <svg id="svg-control">
-        <path id="control-path"></path>
-      </svg>
-      <svg id="svg-element"></svg>
+
+    <div id="scale-wrap">
+      <div id="svg-container" style="width: 500px; height: 500px;">
+        <svg id="svg-control">
+          <path id="control-path"></path>
+        </svg>
+        <svg id="svg-element"></svg>
+      </div>
     </div>
+
   </div>
 
   <script src="/src.a2b27638.js"></script>

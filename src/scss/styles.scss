@@ -61,22 +61,6 @@
   }
 }
 
-.secondary-btn {
-  @include btn-mixin(var(--secondary-clr), white, var(--secondary-clr));
-  border: var(--border-width) solid var(--main-clr);
-  color: #111;
-  &.active {
-    background: var(--main-clr);
-    border: var(--border-width) solid var(--main-clr);
-    color: var(--text-clr-dark);
-    &:hover {
-      background: var(--main-clr) !important;
-      border: var(--border-width) solid var(--text-clr-dark) !important;
-      color: var(--secondary-clr) !important;
-    }
-  }
-}
-
 #show-settings {
   margin-right: 8px;
 }

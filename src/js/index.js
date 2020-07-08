@@ -1,5 +1,4 @@
 import '../scss/styles.scss';
-// import 'normalize.css';
 import Warp from 'warpjs';
 import gsap from 'gsap';
 import Draggable from 'gsap/Draggable';
@@ -26,6 +25,7 @@ let svgString = testSVG;
 let zoom = 1;
 const draggableControlPonts = [];
 
+const app = document.getElementById('app');
 const svgContainer = document.getElementById('svg-container');
 const svgElement = document.getElementById('svg-element');
 const svgControl = document.getElementById('svg-control');
@@ -271,6 +271,7 @@ actions.showOriginalBox.addEventListener(
   'change',
   () => {
     svgControl.classList.toggle('show');
+    app.classList.toggle('checkerboard-pattern');
   },
   false,
 );

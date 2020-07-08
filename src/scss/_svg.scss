@@ -6,6 +6,7 @@
 
 #svg-container {
   position: relative;
+  background-color: var(--background-clr);
 }
 
 #svg-control {
@@ -24,7 +25,7 @@
     }
   }
   &.show {
-    outline: 1px dotted var(--secondary-clr);
+    outline: 1px solid var(--checker-rect);
   }
 }
 

@@ -7,6 +7,7 @@
   --text-clr-dark: #111;
   --btn-border-clr: var(--main-clr);
   --active-drag-clr: #f45;
+  --checker-rect: rgba(0, 0, 0, 0.1);
 }
 
 .dark-theme {
@@ -16,4 +17,5 @@
   --text-clr-light: #111;
   --text-clr-dark: white;
   --btn-border-clr: white;
+  --checker-rect: rgba(255, 255, 255, 0.1);
 }

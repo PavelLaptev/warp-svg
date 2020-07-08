@@ -27,8 +27,6 @@ const toggleControls = () => {
       showSettingsBtn.classList.toggle('active');
       settingsBlock.classList.toggle('hide');
     });
-
-  // console.log(infoBlock.getElementsByClassName("close-btn")[0]);
 };
 
 export default toggleControls;

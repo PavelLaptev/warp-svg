@@ -319,7 +319,7 @@ template {
 .dark-theme {
   --main-clr: #111;
   --secondary-clr: #35ffce;
-  --background-clr: rgb(29, 29, 29);
+  --background-clr: rgb(34, 34, 34);
   --text-clr-light: #111;
   --text-clr-dark: white;
   --btn-border-clr: white;
@@ -427,7 +427,7 @@ hr {
   left: 20px;
   display: flex;
   flex-direction: column;
-  max-width: 320px; }
+  max-width: 380px; }
 
 .content-block {
   cursor: default;
@@ -444,7 +444,7 @@ hr {
     list-style: none; }
     .content-block ul li:before {
       position: absolute;
-      content: '\2022';
+      content: "\2022";
       color: var(--main-clr);
       font-weight: bold;
       display: inline-block;
@@ -498,6 +498,15 @@ hr {
 #show-info {
   text-transform: lowercase;
   margin-right: 8px; }
+
+#save-result-btn {
+  margin-right: 8px; }
+
+#load-svg-btn {
+  margin-right: 8px; }
+
+#load-svg-input {
+  display: none; }
 
 .range-selector {
   margin-bottom: 32px; }
@@ -642,13 +651,43 @@ hr {
   .switcher input[type="checkbox"]:checked + label:after {
     left: -24px; }
 
+.primary-btn {
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 15px;
+  text-transform: uppercase;
+  padding: 0 16px;
+  height: 54px;
+  background: white;
+  color: var(--secondary-clr);
+  transition: all 0.05s ease-in-out;
+  border: var(--border-width) solid var(--secondary-clr);
+  color: #111; }
+  .primary-btn:focus {
+    outline: none; }
+  .primary-btn:hover {
+    background: var(--secondary-clr) !important;
+    color: var(--main-clr) !important; }
+  .primary-btn.active {
+    background: var(--main-clr);
+    border: var(--border-width) solid var(--main-clr);
+    color: var(--text-clr-dark); }
+    .primary-btn.active:hover {
+      background: var(--main-clr) !important;
+      border: var(--border-width) solid var(--text-clr-dark) !important;
+      color: var(--secondary-clr) !important; }
+
 .secondary-btn {
   cursor: pointer;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: "IBM Plex Mono", monospace;
   font-size: 15px;
   text-transform: uppercase;
   padding: 0 16px;

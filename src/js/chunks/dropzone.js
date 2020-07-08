@@ -1,20 +1,20 @@
 const dropZone = (callback) => {
-  const dropZonePreview = document.getElementsByClassName(
-    'dropzone-preview'
-  )[0];
+  const loadBtn = document.getElementById('load-svg-btn');
+  const loadInput = document.getElementById('load-svg-input');
 
-  const toggleDropZone = (e) => {
+  const toggleDropZone = (e, hideZonePreview) => {
     e.stopPropagation();
     e.preventDefault();
     dropZonePreview.classList.toggle('show');
-    // console.log(e.type);
+    // hideZonePreview(dropZonePreview);
+    typeof hideZonePreview === 'function' && hideZonePreview(dropZonePreview);
   };
 
-  const dropEvent = (e) => {
-    toggleDropZone(e);
+  const dropEvent = (e, file, hideZonePreview) => {
+    toggleDropZone(e, hideZonePreview);
 
-    let fileReader = new FileReader();
-    fileReader.readAsText(e.dataTransfer.files[0]);
+    const fileReader = new FileReader();
+    fileReader.readAsText(file);
 
     // console.log(e.type);
     fileReader.onload = () => {
@@ -26,12 +26,23 @@ const dropZone = (callback) => {
     };
   };
 
+  const dropZonePreview = document.getElementsByClassName(
+    'dropzone-preview',
+  )[0];
+
+  const clickOnLoadInput = () => {
+    loadInput.click();
+  };
+
   window.addEventListener('dragenter', toggleDropZone);
   window.addEventListener('dragleave', toggleDropZone);
   window.addEventListener('dragover', (e) => e.preventDefault());
   window.addEventListener('dragstart', (e) => e.preventDefault());
   window.addEventListener('drageend', (e) => e.preventDefault());
-  window.addEventListener('drop', dropEvent);
+  window.addEventListener('drop', (e) => dropEvent(e, e.dataTransfer.files[0]));
+
+  loadBtn.addEventListener('click', clickOnLoadInput);
+  loadInput.addEventListener('change', (e) => dropEvent(e, e.target.files[0], (zone) => { zone.classList.toggle('show'); }));
 };
 
 export default dropZone;

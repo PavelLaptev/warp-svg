@@ -1,12 +1,13 @@
 //
 .actions {
+  // user-select: none;
   z-index: 9999;
   position: absolute;
   bottom: 20px;
   left: 20px;
   display: flex;
   flex-direction: column;
-  max-width: 320px;
+  max-width: 380px;
 }
 
 .content-block {
@@ -50,6 +51,18 @@
 #show-info {
   text-transform: lowercase;
   margin-right: 8px;
+}
+
+#save-result-btn {
+  margin-right: 8px;
+}
+
+#load-svg-btn {
+  margin-right: 8px;
+}
+
+#load-svg-input {
+  display: none;
 }
 
 .range-selector {
@@ -225,6 +238,22 @@
       &:after {
         left: -24px;
       }
+    }
+  }
+}
+
+.primary-btn {
+  @include btn-mixin(var(--secondary-clr), white, var(--secondary-clr));
+  border: var(--border-width) solid var(--secondary-clr);
+  color: #111;
+  &.active {
+    background: var(--main-clr);
+    border: var(--border-width) solid var(--main-clr);
+    color: var(--text-clr-dark);
+    &:hover {
+      background: var(--main-clr) !important;
+      border: var(--border-width) solid var(--text-clr-dark) !important;
+      color: var(--secondary-clr) !important;
     }
   }
 }

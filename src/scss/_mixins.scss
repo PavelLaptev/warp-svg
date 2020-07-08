@@ -7,6 +7,7 @@
   font-size: 14px;
   overflow: hidden;
   position: relative;
+  // max-width: 320px;
   ul {
     padding-left: 24px;
     margin: 0;
@@ -14,7 +15,7 @@
     li {
       &:before {
         position: absolute;
-        content: '\2022';
+        content: "\2022";
         color: var(--main-clr);
         font-weight: bold;
         display: inline-block;
@@ -46,7 +47,7 @@
 @mixin btn-mixin($font-clr, $bck-clr, $hover-bck-clr) {
   cursor: pointer;
   user-select: none;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: "IBM Plex Mono", monospace;
   font-size: 15px;
   text-transform: uppercase;
   padding: 0 16px;

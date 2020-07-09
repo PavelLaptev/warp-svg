@@ -671,7 +671,7 @@ hr {
     outline: none; }
   .primary-btn:hover {
     background: var(--secondary-clr) !important;
-    color: var(--secondary-clr); }
+    color: var(--main-clr) !important; }
     .primary-btn:hover svg {
       fill: var(--main-clr) !important; }
   .primary-btn.active {
@@ -703,20 +703,20 @@ hr {
     outline: none; }
   .secondary-btn:hover {
     background: var(--secondary-clr) !important;
-    color: var(--secondary-clr); }
+    color: var(--main-clr) !important; }
     .secondary-btn:hover svg {
       fill: var(--main-clr) !important; }
   .secondary-btn.active {
     background: var(--main-clr);
     border: var(--border-width) solid var(--main-clr);
     color: var(--text-clr-dark); }
-    .secondary-btn.active svg {
+    .secondary-btn.active > svg {
       fill: var(--text-clr-dark); }
     .secondary-btn.active:hover {
       background: var(--main-clr) !important;
       border: var(--border-width) solid var(--text-clr-dark) !important;
       color: var(--secondary-clr) !important; }
-      .secondary-btn.active:hover svg {
+      .secondary-btn.active:hover > svg {
         fill: var(--text-clr-dark) !important; }
 
 #loader {

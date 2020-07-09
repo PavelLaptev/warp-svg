@@ -60,7 +60,7 @@
   }
   &:hover {
     background: $hover-bck-clr !important;
-    color: $font-clr;
+    color: var(--main-clr) !important;
     svg {
       fill: var(--main-clr) !important;
     }

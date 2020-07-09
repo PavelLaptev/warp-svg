@@ -266,10 +266,16 @@
     background: var(--main-clr);
     border: var(--border-width) solid var(--main-clr);
     color: var(--text-clr-dark);
+    svg {
+      fill: var(--text-clr-dark);
+    }
     &:hover {
       background: var(--main-clr) !important;
       border: var(--border-width) solid var(--text-clr-dark) !important;
       color: var(--secondary-clr) !important;
+      svg {
+        fill: var(--text-clr-dark) !important;
+      }
     }
   }
 }

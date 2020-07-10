@@ -8,6 +8,9 @@
   display: flex;
   flex-direction: column;
   max-width: 380px;
+  a {
+    color: var(--main-clr);
+  }
 }
 
 .content-block {

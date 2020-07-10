@@ -428,6 +428,8 @@ hr {
   display: flex;
   flex-direction: column;
   max-width: 380px; }
+  .actions a {
+    color: var(--main-clr); }
 
 .content-block {
   cursor: default;
@@ -770,6 +772,7 @@ hr {
 
 .links {
   display: flex;
+  flex-wrap: wrap;
   padding: 16px 0 8px; }
 
 .social-media {

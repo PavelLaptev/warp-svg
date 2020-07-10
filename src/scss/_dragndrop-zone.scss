@@ -33,6 +33,9 @@
     display: inline-block;
     width: 230px;
     height: 176px;
+    background-image: url(../images/dragndrop-icon.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
   }
   &.show {
     opacity: 1;

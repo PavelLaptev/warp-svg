@@ -1,0 +1,18 @@
+#if-mobile {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99999;
+  width: 90%;
+  height: 90%;
+  background: rgba($color: #fff, $alpha: 1);
+  border: 8px solid var(--main-clr);
+  .icon {
+    width: 100%;
+    height: 100%;
+    background-size: 60%;
+    background-position: center;
+    background-image: url(../images/text-for-mobile.svg);
+  }
+}

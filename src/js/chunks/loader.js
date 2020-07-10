@@ -1,7 +1,17 @@
+import isTouch from './isTouch';
+
 const loader = () => {
   window.onload = function () {
-    document.getElementById('app').style.opacity = 1;
-    document.getElementById('loader').style.display = 'none';
+    if (!isTouch()) {
+      document.getElementById('loader').style.display = 'none';
+      document.getElementById('app').style.opacity = 1;
+    } else {
+      document.getElementById('loader').style.display = 'none';
+      document.getElementById('if-mobile').style = {
+        display: 'auto',
+        opacity: 1,
+      };
+    }
   };
 };
 

@@ -9,6 +9,7 @@ import saveResult from "./chunks/saveResults";
 import moveAndScaleCanvas from "./chunks/moveAndScaleCanvas";
 import toggleControls from "./chunks/toggleControls";
 import changeTheme from "./chunks/changeTheme";
+import iterpritateSmoothness from "./chunks/iterpritateSmoothness";
 import loader from "./chunks/loader";
 
 import { testSVG } from "./chunks/svg-test-string";
@@ -34,12 +35,14 @@ const zoomElement = document.getElementById("scale-wrap");
 
 const actions = {
   meshComplexity: document.getElementById("mesh-complexity"),
+  meshInterpolation: document.getElementById("interpolation-complexity"),
   showOriginalBox: document.getElementById("show-original-box-btn"),
 };
 
 let width = svgContainer.clientWidth;
 let height = svgContainer.clientHeight;
 let complexityLevel = actions.meshComplexity.value;
+let interpolationLevel = iterpritateSmoothness(actions.meshInterpolation.value);
 
 /// /////////////////////////////////////////////////////////////////
 /// ///////////////////// Parse SVG String //////////////////////////
@@ -83,7 +86,7 @@ function init(firstInit = false) {
 
   // Need to interpolate first, so angles remain sharp
   const warp = new Warp(svgElement);
-  warp.interpolate(50);
+  warp.interpolate(interpolationLevel);
 
   // Start with a rectangle, then distort it later
   let controlPoints = generateMeshPoints(
@@ -275,6 +278,17 @@ actions.showOriginalBox.addEventListener(
   () => {
     svgControl.classList.toggle("show");
     app.classList.toggle("checkerboard-pattern");
+  },
+  false
+);
+
+// /////
+actions.meshInterpolation.addEventListener(
+  "change",
+  (e) => {
+    interpolationLevel = iterpritateSmoothness(e.target.value);
+    createNewControlPath();
+    init();
   },
   false
 );

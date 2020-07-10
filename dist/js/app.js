@@ -260,7 +260,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var gsap
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _downloadAsFile__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./downloadAsFile */ \"./src/js/chunks/downloadAsFile.js\");\n\n\nvar saveResult = function saveResult(btn, content) {\n  btn.onclick = function () {\n    Object(_downloadAsFile__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(new XMLSerializer().serializeToString(content), \"testSVG.svg\");\n  };\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (saveResult);\n\n//# sourceURL=webpack:///./src/js/chunks/saveResults.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _downloadAsFile__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./downloadAsFile */ \"./src/js/chunks/downloadAsFile.js\");\n\n\nvar saveResult = function saveResult(btn, content) {\n  btn.onclick = function () {\n    Object(_downloadAsFile__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(new XMLSerializer().serializeToString(content), 'warped-svg.svg');\n  };\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (saveResult);\n\n//# sourceURL=webpack:///./src/js/chunks/saveResults.js?");
 
 /***/ }),
 

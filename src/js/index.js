@@ -83,7 +83,7 @@ function init(firstInit = false) {
 
   // Need to interpolate first, so angles remain sharp
   const warp = new Warp(svgElement);
-  warp.interpolate(200);
+  warp.interpolate(50);
 
   // Start with a rectangle, then distort it later
   let controlPoints = generateMeshPoints(

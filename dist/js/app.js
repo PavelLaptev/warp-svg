@@ -228,18 +228,6 @@ eval("__webpack_require__.r(__webpack_exports__);\nfunction _toConsumableArray(a
 
 /***/ }),
 
-/***/ "./src/js/chunks/isTouch.js":
-/*!**********************************!*\
-  !*** ./src/js/chunks/isTouch.js ***!
-  \**********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\nvar isTouch = function isTouch() {\n  if (('ontouchstart' in window || navigator.MaxTouchPoints > 0 || navigator.msMaxTouchPoints > 0) && window.screen.width <= 600) {\n    console.log('touch event is true');\n    return true;\n  }\n\n  console.log('touch event is false');\n  return false;\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (isTouch);\n\n//# sourceURL=webpack:///./src/js/chunks/isTouch.js?");
-
-/***/ }),
-
 /***/ "./src/js/chunks/iterpritateSmoothness.js":
 /*!************************************************!*\
   !*** ./src/js/chunks/iterpritateSmoothness.js ***!
@@ -260,7 +248,7 @@ eval("__webpack_require__.r(__webpack_exports__);\nvar iterpritateSmoothness = f
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _isTouch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isTouch */ \"./src/js/chunks/isTouch.js\");\n\n\nvar loader = function loader() {\n  window.onload = function () {\n    if (!Object(_isTouch__WEBPACK_IMPORTED_MODULE_0__[\"default\"])()) {\n      document.getElementById('loader').style.display = 'none';\n      document.getElementById('app').style.opacity = 1;\n    } else {\n      document.getElementById('loader').style.display = 'none';\n      document.getElementById('if-mobile').style = {\n        display: 'auto',\n        opacity: 1\n      };\n    }\n  };\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (loader);\n\n//# sourceURL=webpack:///./src/js/chunks/loader.js?");
+eval("__webpack_require__.r(__webpack_exports__);\nvar loader = function loader() {\n  window.onload = function () {\n    document.getElementById('app').style.opacity = 1;\n    document.getElementById('loader').style.display = 'none';\n  };\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (loader);\n\n//# sourceURL=webpack:///./src/js/chunks/loader.js?");
 
 /***/ }),
 

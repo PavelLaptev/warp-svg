@@ -1,6 +1,6 @@
 {
   "name": "warp-svg-online",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Warp and distort SVG online",
   "scripts": {
     "build": "webpack --mode=development",

@@ -245,7 +245,7 @@ dropZone((result) => {
 /// ////
 document.addEventListener("wheel", function (e) {
   const controlPath = document.getElementById("control-path");
-  if (e.wheelDelta > 0) {
+  if (e.deltaY > 0) {
     zoomElement.style.transform = `scale(${(zoom += 0.02)})`;
     controlPath.style.strokeWidth = `${1 / zoom}px`;
     // console.log(svgControl.querySelectorAll('circle'));

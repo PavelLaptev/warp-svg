@@ -7,7 +7,7 @@ import Draggable from "gsap/Draggable";
 import dropZone from "./chunks/dropzone";
 import generateMeshPoints from "./chunks/generateMeshPoints";
 import saveResult from "./chunks/saveResults";
-import moveAndScaleCanvas from "./chunks/moveAndScaleCanvas";
+import moveCanvas from "./chunks/moveCanvas";
 import toggleControls from "./chunks/toggleControls";
 import changeTheme from "./chunks/changeTheme";
 import iterpritateSmoothness from "./chunks/iterpritateSmoothness";
@@ -93,7 +93,7 @@ function init(firstInit = false) {
   let controlPoints = generateMeshPoints(
     width,
     height,
-    Number(complexityLevel),
+    Number(complexityLevel)
   );
 
   // Compute weights from control points
@@ -171,7 +171,7 @@ function init(firstInit = false) {
   function drawPoint(element, pos = { x: 0, y: 0 }, index) {
     const point = document.createElementNS(
       "http://www.w3.org/2000/svg",
-      "circle",
+      "circle"
     );
     point.setAttributeNS(null, "class", "control-point");
     point.setAttributeNS(null, "cx", pos.x);
@@ -184,8 +184,10 @@ function init(firstInit = false) {
     Draggable.create(point, {
       type: "x,y",
       onDrag: function () {
-        const relativeX = (this.pointerX - svgControl.getBoundingClientRect().left) / zoom;
-        const relativeY = (this.pointerY - svgControl.getBoundingClientRect().top) / zoom;
+        const relativeX =
+          (this.pointerX - svgControl.getBoundingClientRect().left) / zoom;
+        const relativeY =
+          (this.pointerY - svgControl.getBoundingClientRect().top) / zoom;
 
         controlPoints[index] = [relativeX, relativeY];
         drawControlShape();
@@ -229,7 +231,7 @@ const createNewControlPath = () => {
   svgControl.innerHTML = "";
   const newControlPath = document.createElementNS(
     "http://www.w3.org/2000/svg",
-    "path",
+    "path"
   );
   newControlPath.setAttributeNS(null, "id", "control-path");
   svgControl.appendChild(newControlPath);
@@ -268,7 +270,7 @@ actions.meshComplexity.addEventListener(
     createNewControlPath();
     init();
   },
-  false,
+  false
 );
 
 /// /////
@@ -278,7 +280,7 @@ actions.showOriginalBox.addEventListener(
     svgControl.classList.toggle("show");
     app.classList.toggle("checkerboard-pattern");
   },
-  false,
+  false
 );
 
 // /////
@@ -289,12 +291,12 @@ actions.meshInterpolation.addEventListener(
     createNewControlPath();
     init();
   },
-  false,
+  false
 );
 
 // Initial calling
 changeTheme();
-moveAndScaleCanvas(svgContainer);
+moveCanvas(svgContainer);
 saveResult(document.getElementById("save-result-btn"), svgElement);
 toggleControls();
 init(true);

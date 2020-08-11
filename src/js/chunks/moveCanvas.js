@@ -1,6 +1,6 @@
 import Draggable from 'gsap/Draggable';
 
-const moveAndScaleCanvas = (movingElement) => {
+const moveCanvas = (movingElement) => {
   const canvasDrag = Draggable.create(movingElement, {
     trigger: document.body,
     cursor: 'auto',
@@ -24,4 +24,4 @@ const moveAndScaleCanvas = (movingElement) => {
   });
 };
 
-export default moveAndScaleCanvas;
+export default moveCanvas;
